@@ -33,7 +33,6 @@ const CalendarHeaderTimeline = (props : { getCalendarCurrentDate: ((_date:string
                 </div>
                 <div className={styles.monthDate}>{props.calendarMonthName + " " + props.calendarYearName}</div>
                 <div className={styles.daySelector}>
-                    <span>{strings.staffHubDays}</span>
                     <span>{strings.staffHubWeeks}</span>
                     <span className={styles.visited}>{strings.staffHubMonth}</span>
                 </div>

@@ -21,6 +21,7 @@ let strings = new LocalizedStrings({
         staffHubDays: 'Jour',
         staffHubWeeks: 'Semaine',
         staffHubMonth: 'Mois',
+        staffHubError: 'Une erreur est survenue, contacter voter administrateur',
         staffHubLeftPanelTitle: 'Membres',
         staffHubLeftPanelTitleMonth: 'Mois',
         staffHubLeftPanelMemberHour: 'Heure',        
@@ -37,9 +38,11 @@ let strings = new LocalizedStrings({
         staffHubNewFormClientPickerNotFound: 'Client introuvable',
         staffHubNewFormColor: 'Couleur',
         staffHubNewFormBtnSave: 'Sauvegarder',
+        staffHubNewFormBtnEdit: 'Modifier',
         staffHubNewFormBtnDelete: 'Supprimer',
         staffHubNewFormBtnNew: 'Nouveau',
-        staffHubNewFormSaveWarning: 'Vous devez remplir tous les champs obligatoire avant de valider le formulaire',
+        staffHubNewFormSaveWarningMissingProps: 'Vous devez remplir tous les champs obligatoire avant de valider le formulaire',
+        staffHubNewFormSaveWarningErrorDate: 'La date de début ne doit pas être supérieur à la date de fin',
     }
 });
 

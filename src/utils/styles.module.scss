@@ -10,6 +10,7 @@ $black: #000000;
 body {
     font-family: "Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
 }
+
 .noselect {
     -webkit-touch-callout: none; /* iOS Safari */
       -webkit-user-select: none; /* Safari */
@@ -20,108 +21,112 @@ body {
                                     supported by Chrome, Opera and Firefox */
   }
 
-.calendarHeaderParametersContainer {
-    height: 50px; background-color: $infeenyColor; display: flex; color:$white;
-    .title { width: 280px; display:flex; flex-direction: column; justify-content: center; text-align: center; cursor:default; font-size:1.5em;}
-    .btnContainerParameters{
-        display: flex;
-        .btnParameters{ display:flex; flex-direction: column; justify-content: center; text-align: center; margin-right: 25px; cursor:pointer;  }
-        .btnVisited, .btnParameters:hover { border-bottom: 5px solid $mediumGrey; color: $mediumGrey; }
-    }
-}
 
-.calendarHeaderTimeline {
-    display: flex; height: 35px; padding-left: 25px; background-color: $lightGrey; border-bottom: 2px solid $mediumGrey;
-    .today, .monthDate, .icon { cursor: pointer; }
-    .today, .monthDate{ display:flex; flex-direction: column; justify-content: center; text-align: center; }
-    .today { margin-right: 10px; }
-    .icon { 
-        margin: auto 0 auto 0; 
-        svg { fill: $strongGrey; }
-        svg:hover { fill: $black; }
-    }
-    .monthDate { font-weight: bold; margin-left: 10px; }
-    .daySelector { 
-        display: flex; margin:auto 20px auto auto; height: 100%;
-        span { display: flex; flex-direction: column; text-align: center; justify-content: center;   margin-right:10px; cursor: pointer; }
-        span:hover, .visited { border-bottom: 5px solid $infeenyColor; }
-    }
-}
+.application {
+    background-color: white;
+    min-height: 800px;
 
-.mainTimeline{
-    .leftMembersPanel {
-        display: flex;
-        .leftMembersPanelContainer{
-            width: 200px; background-color: $lightGrey; min-width: 200px;
-            .leftMembersPanelRow {
-                width: 100%; display: flex; margin-bottom: 0px; height:70px; border-top: 1px solid $mediumGrey; cursor: default; border-right: 3px solid $mediumGrey;
-                .initial{ margin: auto 0 auto 10px; height: 35px; width: 35px; color: $white; background-color: $infeenyColor; border-radius: 50%; text-align:center; vertical-align: middle; line-height: 35px;}
-                .memberInfoContainer{
-                    margin: auto 0 auto 10px;
-                    .name{ font-weight: bold;}
-                    .hours { font-size: 0.75em; }
-                }
-            }
-            .leftMembersPanelRow:hover{
-                background-color: $mediumGrey;
-            }
+    .calendarHeaderParametersContainer {
+        height: 50px; background-color: $infeenyColor; display: flex; color:$white;
+        .title { width: 280px; display:flex; flex-direction: column; justify-content: center; text-align: center; cursor:default; font-size:1.5em;}
+        .btnContainerParameters{
+            display: flex;
+            .btnParameters{ display:flex; flex-direction: column; justify-content: center; text-align: center; margin-right: 25px; cursor:pointer;  }
+            .btnVisited, .btnParameters:hover { border-bottom: 5px solid $mediumGrey; color: $mediumGrey; }
         }
-        .timelineGrid{
-            display:flex; flex:1;
-            .timelineCell{
-                 height: 70px; flex: 1;min-width:20px;padding-top:4px;
-                .timelineCellBorder{
-                    border-bottom: 1px solid $mediumGrey; border-right: 1px solid $mediumGrey; flex:1; height:100%;position: relative;
-                }
-                .timelineCellBorder:hover{
-                   // background-color: $mediumGrey;
-                }
-                .timelineShift{ 
-                    height:20px; cursor:pointer;top:0px; z-index: 10;position: absolute; left: 3px; display: flex;
-                    .timelineShiftTitle {
-                        color: white; font-size:12px; margin: auto 0 auto 5px;
+    }
+
+    .calendarHeaderTimeline {
+        display: flex; height: 35px; padding-left: 25px; background-color: $lightGrey; border-bottom: 2px solid $mediumGrey;
+        .today, .monthDate, .icon { cursor: pointer; }
+        .today, .monthDate{ display:flex; flex-direction: column; justify-content: center; text-align: center; }
+        .today { margin-right: 10px; }
+        .icon { 
+            margin: auto 0 auto 0; 
+            svg { fill: $strongGrey; }
+            svg:hover { fill: $black; }
+        }
+        .monthDate { font-weight: bold; margin-left: 10px; }
+        .daySelector { 
+            display: flex; margin:auto 20px auto auto; height: 100%;
+            span { display: flex; flex-direction: column; text-align: center; justify-content: center;   margin-right:10px; cursor: pointer; }
+            span:hover, .visited { border-bottom: 5px solid $infeenyColor; }
+        }
+    }
+
+    .mainTimeline{
+        .leftMembersPanel {
+            display: flex;
+            .leftMembersPanelContainer{
+                width: 200px; background-color: $lightGrey; min-width: 200px;
+                .leftMembersPanelRow {
+                    width: 100%; display: flex; margin-bottom: 0px; height:70px; border-top: 1px solid $mediumGrey; cursor: default; border-right: 3px solid $mediumGrey;
+                    .initial{ margin: auto 0 auto 10px; height: 35px; width: 35px; color: $white; background-color: $infeenyColor; border-radius: 50%; text-align:center; vertical-align: middle; line-height: 35px;}
+                    .memberInfoContainer{
+                        margin: auto 0 auto 10px;
+                        .name{ font-weight: bold;}
+                        .hours { font-size: 0.75em; }
                     }
                 }
-                .timelineShift:hover{ opacity:0.8;}
-            }           
-        }
-    }
-    .timelineGroupContainer{ 
-        height: 50px; background-color: $lightGrey; border-bottom: 1px solid $mediumGrey; display:flex;
-        .timelineGroupContainerMonthWork { 
-            width: 200px; border-right: 3px solid $mediumGrey; 
-            .timelineGroupContainerMonthWorkTitle { margin: 8px; }
-        }
-        .timelineGroupContainerName { 
-            flex: 1; font-weight: bold; font-size: 1.5em; display: flex;
-            .timelineGroupContainerNameTitle { margin: 8px;overflow: hidden; }
-            > button { margin: auto 20px auto 10px; }
-        }
-    }
-
-    .timelineTimeContainer {
-        width: 100%; display:flex; background-color: $lightGrey;
-        .monthTimeline { 
-            width: 200px; border-right: 3px solid $mediumGrey; border-bottom: 1px solid $mediumGrey;min-width:200px;
-            .monthTimelineTitle { margin: 8px; }
-        }
-
-        .daysGrid {
-            display: flex; flex:1;
-            .days{
-               min-width:20px; flex:1; padding:8px 0 8px 0; border-bottom: 1px solid $mediumGrey; border-right: 1px solid $mediumGrey; height: 50px; font-weight: bold;
-                .daysName{ font-size:0.80em;}
-                .daysNumber, .daysName { text-align: center; }
+                .leftMembersPanelRow:hover{
+                    background-color: $mediumGrey;
+                }
             }
-            .daysGrey{ color:$mediumPlusGrey; }
-            .daysCurrent{ color:$infeenyColor; opacity: 0.5;}
+            .timelineGrid{
+                display:flex; flex:1;
+                .timelineCell:first-child{padding-left:2px;}
+                .timelineCell{
+                    height: 70px; flex: 1;min-width:20px;padding-top:4px;
+                    .timelineCellBorder{
+                        border-bottom: 1px solid $mediumGrey; border-right: 1px solid $mediumGrey; flex:1; height:100%;position: relative;
+                    }
+                    .timelineShift{ 
+                        height:20px; cursor:pointer;top:0px; z-index: 10;position: absolute; left: 3px; display: flex; border-radius: 5px 10px 10px 5px;
+                        .timelineShiftTitle {
+                            color: white; font-size:12px; margin: auto 0 auto 5px;
+                        }
+                    }
+                    .timelineShift:hover{ opacity:0.8;}
+                }           
+            }
+        }
+        .timelineGroupContainer{ 
+            height: 50px; background-color: $lightGrey; border-bottom: 1px solid $mediumGrey; display:flex;
+            .timelineGroupContainerMonthWork { 
+                width: 200px; border-right: 3px solid $mediumGrey; 
+                .timelineGroupContainerMonthWorkTitle { margin: 8px; }
+            }
+            .timelineGroupContainerName { 
+                flex: 1; font-weight: bold; font-size: 1.5em; display: flex;
+                .timelineCommandBar{ width: 350px;}
+                .timelineGroupContainerNameTitle { margin: 8px;overflow: hidden; }
+                > button { margin: auto 20px auto 10px; }
+            }
         }
 
-        
-    }
-    
-}
+        .timelineTimeContainer {
+            width: 100%; display:flex; background-color: $lightGrey;
+            .monthTimeline { 
+                width: 200px; border-right: 3px solid $mediumGrey; border-bottom: 1px solid $mediumGrey;min-width:200px;
+                .monthTimelineTitle { margin: 8px; }
+            }
 
+            .daysGrid {
+                display: flex; flex:1;
+                .days{
+                min-width:20px; flex:1; padding:8px 0 8px 0; border-bottom: 1px solid $mediumGrey; border-right: 1px solid $mediumGrey; height: 50px; font-weight: bold;
+                    .daysName{ font-size:0.80em;}
+                    .daysNumber, .daysName { text-align: center; }
+                }
+                .daysGrey{ color:$mediumPlusGrey; }
+                .daysCurrent{ color:$infeenyColor; opacity: 0.5;}
+            }
+
+            
+        }
+        
+    }    
+}
 .addNewEventModal {
     .row { margin-top: 25px; }
     .required { color:red; margin-left: 5px!important; }
@@ -145,8 +150,16 @@ body {
     }    
     .newEventClient{ display: flex; }
     .newEventButton {
-        position: absolute;bottom: 40px; right: 50px; display:float;
-        .newEventSaveButton { }
-        .newEventDeleteButton {  }
+        position: absolute;bottom: 40px; width: 100%; display:flex; margin-left:-15px;
+        .newEventSaveButton { margin: auto 15px auto auto; }
+        .newEventDeleteButton { 
+            height: 30px; width: 30px; margin-left: 15px; cursor:pointer;
+            .iconDelete { display: block; }
+            .iconDeleteHover { display: none; }
+        }
+        .newEventDeleteButton:hover { 
+            .iconDelete { display: none; }
+            .iconDeleteHover { display: block; }
+        }
     }
 }

@@ -90,7 +90,7 @@ const TimelineGridRow = (props: { calendarDays: string[]; currentMember: memberS
                 _NbOverlapEvent++;
 
             if(usedGridShift.length > 1) {
-                return <div onClick={() => props.updateEvent(_shift.id, props.currentMember.email)} className={styles.timelineShift} style={{ backgroundColor: _shift.color, width: dynamicWith, top: timelineGridTopShift * (_NbOverlapEvent) + "px" }}>                        
+                return <div onClick={() => props.updateEvent(_shift.id, props.currentMember.email)} className={styles.timelineShift} style={{ backgroundColor: _shift.color, width: dynamicWith, top: (_NbOverlapEvent > 1 ? timelineGridTopShift + 0.4 : timelineGridTopShift) * (_NbOverlapEvent) + "px" }}>                        
                         <span className={styles.timelineShiftTitle} >{_shift.title}</span>
                         </div>
             }
