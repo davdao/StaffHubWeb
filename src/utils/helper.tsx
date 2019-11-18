@@ -1,6 +1,7 @@
 import { staffGroup } from "../model/staffGroup";
 import { memberShift } from "../model/memberShift";
 import moment from "moment";
+import { ITag } from "office-ui-fabric-react/lib/components/pickers/TagPicker/TagPicker.types";
 
 export function  NewGuid() {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -10,6 +11,17 @@ export function  NewGuid() {
   });
 }
 
+export function GetMockUpClient() {
+  let clientsList: ITag[] = [
+    'Michelin',
+    'GEM',
+    'Grand Lyon',
+    'Toray',
+    'Sicam'
+  ].map(item => ({ key: item, name: item }));
+  
+  return clientsList;
+}
 export function GetMockUpdate() {
     let teamStaffing:staffGroup  = new staffGroup();
     let teamMembers:memberShift[] = [        
@@ -18,8 +30,8 @@ export function GetMockUpdate() {
             id:"toto1",
             client: "Grand Lyon",
             color: "#240058",
-            endDate: "2019-12-25T23:00:00.000Z",
-            startDate: "2019-10-18T23:00:00.000Z",
+            endDate: "2019-12-25T00:00:00.000Z",
+            startDate: "2019-10-18T00:00:00.000Z",
             title: "hum18/10-25/12",
             startDay: 18,
             startMonth: 10,
@@ -32,8 +44,8 @@ export function GetMockUpdate() {
             id:"toto01",
             client: "Grand Lyon",
             color: "#017CE6",
-            startDate: "2019-10-09T23:00:00.000Z",
-            endDate: "2019-11-14T23:00:00.000Z",            
+            startDate: "2019-10-09T00:00:00.000Z",
+            endDate: "2019-11-14T00:00:00.000Z",            
             title: "sec09/10-12/11",
             startDay: 9,
             startMonth: 10,
@@ -46,8 +58,8 @@ export function GetMockUpdate() {
             id:"toto0",
             client: "Grand Lyon",
             color: "#FFBA00",
-            startDate: "2019-10-09T23:00:00.000Z",
-            endDate: "2019-11-12T23:00:00.000Z",            
+            startDate: "2019-10-09T00:00:00.000Z",
+            endDate: "2019-11-12T00:00:00.000Z",            
             title: "09/10-12/11",
             startDay: 9,
             startMonth: 10,
@@ -60,8 +72,8 @@ export function GetMockUpdate() {
             id:"toto02",
             client: "Grand Lyon",
             color: "#4D8602",
-            startDate: "2019-11-20T23:00:00.000Z",
-            endDate: "2019-11-22T23:00:00.000Z",            
+            startDate: "2019-11-20T00:00:00.000Z",
+            endDate: "2019-11-22T00:00:00.000Z",            
             title: "09/10-12/11",
             startDay: 20,
             startMonth: 11,
@@ -69,63 +81,7 @@ export function GetMockUpdate() {
             endDay: 22,
             endMonth: 11,
             endYear: 2019,
-          }          
-         /* {
-            id:"toto2",
-            client: "Grand Lyon",
-            color: "#240058",
-            startDate: "2019-11-09T23:00:00.000Z",
-            endDate: "2019-11-12T23:00:00.000Z",            
-            title: "09/11-12/11",
-            startDay: 9,
-            startMonth: 11,
-            startYear: 2019,
-            endDay: 12,
-            endMonth: 11,
-            endYear: 2019,
-          },
-          {
-            id:"toto3",
-            client: "Grand Lyon",
-            color: "#240058",
-            startDate: "2019-11-15T23:00:00.000Z",
-            endDate: "2019-11-16T23:00:00.000Z",            
-            title: "15/11-16/11",
-            startDay: 15,
-            startMonth: 11,
-            startYear: 2019,
-            endDay: 16,
-            endMonth: 11,
-            endYear: 2019,
-          },
-          {
-            id:"toto5",
-            client: "Grand Lyon",
-            color: "#240058",
-            startDate: "2019-11-24T23:00:00.000Z",
-            endDate: "2019-12-05T23:00:00.000Z",            
-            title: "24/11-05/12",
-            startDay: 24,
-            startMonth: 11,
-            startYear: 2019,
-            endDay: 5,
-            endMonth: 12,
-            endYear: 2019,
-          },
-          {
-            id:"toto4",
-            client: "Grand Lyon",
-            color: "#240058",
-            startDate: "2019-12-17T23:00:00.000Z",
-            endDate: "2019-12-17T23:00:00.000Z",            
-            title: "17/12",
-            startDay: 17,
-            startMonth: 12,
-            startYear: 2019,
-            endDay: 17,
-            endMonth: 12,
-            endYear: 2019,
-          }*/
+          }                 
           ] }
     
     ];
