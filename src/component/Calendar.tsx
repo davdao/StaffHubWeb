@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import CalendarMainTimeline from './sub-component/CalendarMainTimeline';
 import CalendarHeaderTimeline from './sub-component/CalendarHeaderTimeline';
 import CalendarHeaderParameters from './sub-component/CalendarHeaderParameters';
@@ -7,13 +7,15 @@ import { initializeIcons, MessageBarType } from 'office-ui-fabric-react'
 import { getDaysArrayByMonth } from '../utils/helper';
 import strings from '../utils/resources';
 import staffHubBusiness from '../business/staffHubBusiness';
+import { staffGroup } from '../model/staffGroup';
+import { ResultBase } from '../model/httpRequest/resultbase';
 
 const Calendar = () => {
     initializeIcons();
 
-    let currentDate = new Date().toLocaleString('default', { month: 'long', day: 'numeric', year: 'numeric' }).split(" ");
+    let currentDate = new Date().toLocaleDateString('fr-FR', { month: 'long', day: 'numeric', year: 'numeric' }).split(" ");
     
-    const [staffingGroup, setStaffingGroup] = useState(GetMockUpdate());
+    const [staffingGroup, setStaffingGroup] = useState(new staffGroup());
     const [clientList, setClientList] = useState(GetMockUpClient());
     const [calendarCurrentDay] = useState(currentDate[0]);
     const [calendarMonthName, setCalendarMonthName] = useState(currentDate[1]);
@@ -21,6 +23,10 @@ const Calendar = () => {
     const [calendarDays, setCalendarDays] = useState(getDaysArrayByMonth(calendarMonthName, calendarYearName));    
     const [timelineMessage, setTimelineMessage] = useState("");
     const [timelineTypeMessage, setTimelineTypeMessage] = useState();
+
+    useEffect(() => {
+        staffHubBusiness.GetActivityById("1").then((result:ResultBase<staffGroup>) => {  setStaffingGroup(result.item!) }) 
+    })
 
     function resetCurrentCalndarDate() 
     {

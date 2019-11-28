@@ -25,7 +25,7 @@ export function GetMockUpClient() {
 export function GetMockUpdate() {
     let teamStaffing:staffGroup  = new staffGroup();
     let teamMembers:memberShift[] = [        
-        { memberName:'Pauline Console', email:'Console@infeeny.com', totalHours:0, pictureUrl:'', shiftArray:[
+        { id:"1", name:'Pauline Console', email:'Console@infeeny.com', totalHours:0, pictureUrl:'', shiftArray:[
           {
             id:"toto1",
             client: "Grand Lyon",
@@ -86,8 +86,8 @@ export function GetMockUpdate() {
     
     ];
     
-    teamStaffing.groupName = "Modern WorkPlace";
-    teamStaffing.teamMembers = teamMembers;
+    teamStaffing.name = "Modern WorkPlace";
+    teamStaffing.members = teamMembers;
 
     return teamStaffing;
 }
