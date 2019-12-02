@@ -24,7 +24,6 @@ const CalendarMainTimeline = (props : { staffingGroup: staffGroup,
                                         UpdateEvent:((e, i, u) => void), 
                                         DeleteEvent:((i, u) => void) } ) => {
                                             
-    const [groupName] = useState(props.staffingGroup.groupName);    
     const [currentCalendarMonthNumber] = useState(moment().format("MM"));
     const [currentCalendarYearName] = useState(moment().format("YYYY"));
     const [showPanel, setShowPanel] = useState(false);
@@ -41,7 +40,7 @@ const CalendarMainTimeline = (props : { staffingGroup: staffGroup,
 
             setSelectedDate(new Date(Number.parseInt(props.calendarYearName), Number.parseInt(moment().month(props.calendarMonthName).format("MM"))-1, _day));
             setpanelUserEmail(_userEmail);
-            setpanelUserName(props.staffingGroup.teamMembers.filter(u => u.email === _userEmail)[0].memberName);
+            setpanelUserName(props.staffingGroup.members.filter(u => u.email === _userEmail)[0].name);
         }
         else {
             setpanelUserName("");
@@ -53,7 +52,7 @@ const CalendarMainTimeline = (props : { staffingGroup: staffGroup,
 
     function OnOpenEditForm(_eventId, _userEmail) {
         try {
-            let members:memberShift = props.staffingGroup.teamMembers.find((u => u.email === _userEmail))!;
+            let members:memberShift = props.staffingGroup.members.find((u => u.email === _userEmail))!;
             let eventItemToModify = members.shiftArray.find(e => e.id === _eventId)!;
             
             setEventToModify(eventItemToModify);
@@ -123,7 +122,7 @@ const CalendarMainTimeline = (props : { staffingGroup: staffGroup,
                     <div className={styles.timelineGroupContainerName}>                        
                         <TimelineCommandBar OnOpenNewForm={() => OnOpenNewForm("", "")}/>
                         <div className={styles.timelineGroupContainerNameTitle}>
-                            {groupName}
+                            {props.staffingGroup.name}
                         </div>
                     </div>
                     
@@ -134,7 +133,7 @@ const CalendarMainTimeline = (props : { staffingGroup: staffGroup,
                 }
                 <div className={styles.timelineGrid}>
                 {
-                    props.staffingGroup.teamMembers.map((member:memberShift, index) => {
+                    props.staffingGroup.members.map((member:memberShift, index) => {
                         return( <TimelineGridRow calendarDays={props.calendarDays} 
                                                  currentMember={member}      
                                                  currentMonthNumber={parseInt(props.calendarDays[0].split(" ")[2])}                                            
@@ -154,7 +153,7 @@ const CalendarMainTimeline = (props : { staffingGroup: staffGroup,
                 headerText={strings.staffHubNewFormTitle + (panelUserName.length > 0 ? " \"" + panelUserName + "\"" : "")}>
                     <EventForm userEmail={panelUserEmail} 
                              selectedDate={selectedDate ? selectedDate : new Date()} 
-                             listMembers={selectedDate ? [] : props.staffingGroup.teamMembers}
+                             listMembers={selectedDate ? [] : props.staffingGroup.members}
                              clientList={props.clientList}
                              eventToUpdate={eventToModify}
                              updateEvent={(eventId, userEmail, event) => { setShowPanel(false); props.UpdateEvent(eventId, userEmail, event)}}

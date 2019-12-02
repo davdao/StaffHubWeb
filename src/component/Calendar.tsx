@@ -1,26 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import CalendarMainTimeline from './sub-component/CalendarMainTimeline';
 import CalendarHeaderTimeline from './sub-component/CalendarHeaderTimeline';
 import CalendarHeaderParameters from './sub-component/CalendarHeaderParameters';
-import { GetMockUpdate, GetMockUpClient } from '../utils/helper';
-import { initializeIcons, MessageBarType } from 'office-ui-fabric-react'
+import { initializeIcons, MessageBarType, ITag } from 'office-ui-fabric-react'
 import { getDaysArrayByMonth } from '../utils/helper';
 import strings from '../utils/resources';
+import { staffGroup } from '../model/staffGroup';
 import staffHubBusiness from '../business/staffHubBusiness';
+import { ResultBase } from '../model/httpRequest/resultbase';
+import { client } from '../model/client';
+import clientBusiness from '../business/clientBusiness';
+import activityBusiness from '../business/activityBusiness';
 
 const Calendar = () => {
     initializeIcons();
 
-    let currentDate = new Date().toLocaleString('default', { month: 'long', day: 'numeric', year: 'numeric' }).split(" ");
+    let currentDate = new Date().toLocaleDateString('fr-FR', { month: 'long', day: 'numeric', year: 'numeric' }).split(" ");
     
-    const [staffingGroup, setStaffingGroup] = useState(GetMockUpdate());
-    const [clientList, setClientList] = useState(GetMockUpClient());
+    const [activityId] = useState('1');
+    const [staffingGroup, setStaffingGroup] = useState(new staffGroup());
+    const [clientList, setClientList] = useState(new Array<ITag>());
     const [calendarCurrentDay] = useState(currentDate[0]);
     const [calendarMonthName, setCalendarMonthName] = useState(currentDate[1]);
     const [calendarYearName, setCalendarYearName] = useState(currentDate[2]);
     const [calendarDays, setCalendarDays] = useState(getDaysArrayByMonth(calendarMonthName, calendarYearName));    
     const [timelineMessage, setTimelineMessage] = useState("");
     const [timelineTypeMessage, setTimelineTypeMessage] = useState();
+
+    useEffect(() => {        
+        activityBusiness.GetActivityById(activityId).then((result:ResultBase<staffGroup>) => {  setStaffingGroup(result.item!); }) 
+        clientBusiness.GetAllClient().then((result:ResultBase<client>) => { setClientList(result.data.map((item) => ({ key: item.id!, name: item.name, color: item.color }))); }) 
+    }, [])
 
     function resetCurrentCalndarDate() 
     {
@@ -40,9 +50,10 @@ const Calendar = () => {
 
     
     function AddEvent(_userEmail, _item) {
-        try {                        
-            setClientList(staffHubBusiness.AddNewClient(clientList, _item.client));
-            setStaffingGroup(staffHubBusiness.AddItem(_userEmail, _item, staffingGroup));
+        try {               
+            staffHubBusiness.AddNewEvent(_userEmail, _item, staffingGroup, activityId).then((result) => {
+                setStaffingGroup(result);
+            })                  
         } catch (error) {
             
         }            

@@ -76,7 +76,7 @@ body {
                 display:flex; flex:1;
                 .timelineCell:first-child{padding-left:2px;}
                 .timelineCell{
-                    height: 70px; flex: 1;min-width:20px;padding-top:4px;
+                    height: 70px; flex: 1;min-width:20px;
                     .timelineCellBorder{
                         border-bottom: 1px solid $mediumGrey; border-right: 1px solid $mediumGrey; flex:1; height:100%;position: relative;
                     }
@@ -144,9 +144,6 @@ body {
             > div {
                 margin-right: 10px;
             }
-        .allDayEventContainer {
-            margin:auto auto auto 5px;
-        }
     }    
     .newEventClient{ display: flex; }
     .newEventButton {

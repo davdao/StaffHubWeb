@@ -1,24 +1,22 @@
 import { staffGroup } from "../model/staffGroup";
 import { shift } from "../model/shift";
 import { memberShift } from "../model/memberShift";
+import memberBusiness from "./memberBusiness";
 
-export default class staffHubBusiness {
-
-    public static AddNewClient(_clientList, _client) {
-        //Check if client exist or not
-        if(!_clientList.some(u => u.name.toLocaleLowerCase() === _client.toLocaleLowerCase())) {
-            _clientList.push({ key:_client.replace(" ", ""), name:_client })
-        }
-        return _clientList;
-    }
-
-    public static AddItem(_userEmail: string, _item: shift, _staffingGroup: staffGroup)
+export default class staffHubBusiness {    
+    public static AddNewEvent(_userEmail: string, _item: shift, _staffingGroup: staffGroup, _activityId: string)
     {
-        if(_staffingGroup.teamMembers.some(u => u.email === _userEmail)) {
-            let user: memberShift = _staffingGroup.teamMembers.find(u => u.email === _userEmail)!;    
+        return new Promise<staffGroup>((resolve, reject) => {
+        if(_staffingGroup.members.some(u => u.email === _userEmail)) {
+            let user: memberShift = _staffingGroup.members.find(u => u.email === _userEmail)!;   
+            
+            memberBusiness.AddMemberEvent(_userEmail, _item, _activityId).then((itemAdded) => {
+                _item.id = itemAdded.item!.id;
+            })
             user.shiftArray.push(_item);
+            resolve(_staffingGroup);
         }
-        return _staffingGroup;
+        });
     }
 
     public static UpdateItem(_userEmail: string, _itemId: string, _itemToUpdate: shift, _staffingGroup: staffGroup)
@@ -26,7 +24,7 @@ export default class staffHubBusiness {
         if(_userEmail === "" || _itemId === "" )
             throw new Error("Paramètre 'Email' ou 'Id' manquant");
 
-        let user: memberShift = _staffingGroup.teamMembers.find(u => u.email === _userEmail)!; 
+        let user: memberShift = _staffingGroup.members.find(u => u.email === _userEmail)!; 
         let itemToUpdate = user.shiftArray.filter(u => u.id === _itemId);
 
         if(!itemToUpdate)
@@ -48,6 +46,7 @@ export default class staffHubBusiness {
         itemToUpdate[0].endMonth = endDateObj.getMonth()+1;
         itemToUpdate[0].endYear = endDateObj.getFullYear();
 
+        memberBusiness.UpdateMemberEvent(itemToUpdate[0]);
         return _staffingGroup
     }
 
@@ -56,15 +55,15 @@ export default class staffHubBusiness {
         if(_userEmail === "" || _itemId === "" )
             throw new Error("Paramètre 'Email' ou 'Id' manquant");
 
-        if(_staffingGroup.teamMembers.some(u => u.email === _userEmail)) {
-            let user: memberShift = _staffingGroup.teamMembers.find(u => u.email === _userEmail)!; 
-            user.shiftArray = user.shiftArray.filter(u => u.id !== _itemId)
+        if(_staffingGroup.members.some(u => u.email === _userEmail)) {
+            let user: memberShift = _staffingGroup.members.find(u => u.email === _userEmail)!; 
+
+            let itemToDelte = user.shiftArray.filter(i => i.id === _itemId);
+            if(itemToDelte.length > 0) {
+                user.shiftArray = user.shiftArray.filter(u => u.id !== itemToDelte[0].id)
+                memberBusiness.DeleteMemberEvent(itemToDelte[0]);
+            }
         }
         return _staffingGroup;
-    }
-
-    public static GetItem()
-    {
-
     }
 }

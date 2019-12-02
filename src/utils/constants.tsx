@@ -6,7 +6,30 @@ export const fixWidth = 100;
 export const fixWidthforBigEvent = 100.8;
 export const timelineGridTopShift = 22;
 
+const BASE_URL = "https://localhost:44355/api";
 
+export const Config = {
+    ApiUrl: {
+        Activity: {
+            GetById : BASE_URL + '/activity?Id={0}',
+            Update : BASE_URL + '/activity',
+            Delete : BASE_URL + '/activity',
+            Insert : BASE_URL + '/activity'
+        },
+        Member: {
+            GetAll : BASE_URL + '/member',
+
+            Event : {
+                Add : BASE_URL + '/member/event/add?memberEmail={0}&activityId={1}',
+                Update : BASE_URL + '/member/event/update',
+                Delete : BASE_URL + '/member/event/delete',
+            }
+        },
+        Client :{
+            GetAll : BASE_URL + '/client',
+        }
+    }
+}
 
 export const colorCellsStaffHub = [
     { id: 'infeenyColor', label: 'Infeeny', color: '#240058' },
