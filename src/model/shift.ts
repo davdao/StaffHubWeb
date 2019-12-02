@@ -1,20 +1,24 @@
 import { NewGuid } from "../utils/helper";
+import { client } from "./client";
+import { itemWithId } from "./itemWithId";
 
-export class shift {
-    id?: string = '';
+export class shift extends itemWithId {
     title: string = '';
     startDate: string = '';
+    endDate: string = '';
+    client: client = new client("", "", "");
+    color?: string = '';
+
     startYear?: number = 0;
     startDay?: number = 0;
     startMonth?: number = 0;    
-    endDate: string = '';
+    
     endDay?: number = 0;
     endMonth?: number = 0;
     endYear?: number = 0;
-    client: string = '';
-    color: string = '';
 
     constructor(item? : shift) {
+        super();
         if(item) {
             this.id = NewGuid();
             this.title = item.title;

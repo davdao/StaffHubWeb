@@ -90,12 +90,12 @@ const TimelineGridRow = (props: { calendarDays: string[]; currentMember: memberS
                 _NbOverlapEvent++;
 
             if(usedGridShift.length > 1) {
-                return <div key={"containsShift_" + index} onClick={() => props.updateEvent(_shift.id, props.currentMember.email)} className={styles.timelineShift} style={{ backgroundColor: _shift.color, width: dynamicWith, top: (_NbOverlapEvent > 1 ? timelineGridTopShift + 0.4 : timelineGridTopShift) * (_NbOverlapEvent) + "px" }}>                        
+                return <div key={"containsShift_" + index} onClick={() => props.updateEvent(_shift.id, props.currentMember.email)} className={styles.timelineShift} style={{ backgroundColor: _shift.client.color, width: dynamicWith, top: (_NbOverlapEvent > 1 ? timelineGridTopShift + 0.4 : timelineGridTopShift) * (_NbOverlapEvent) + "px" }}>                        
                         <span className={styles.timelineShiftTitle} >{_shift.title}</span>
                         </div>
             }
             else {
-                return <div key={"notContainsShift_" + index} onClick={() => props.updateEvent(_shift.id, props.currentMember.email)}className={styles.timelineShift} style={{ backgroundColor: _shift.color, width: dynamicWith }}>                        
+                return <div key={"notContainsShift_" + index} onClick={() => props.updateEvent(_shift.id, props.currentMember.email)}className={styles.timelineShift} style={{ backgroundColor: _shift.client.color, width: dynamicWith }}>                        
                         <span className={styles.timelineShiftTitle} >{_shift.title}</span>
                         </div>
             }

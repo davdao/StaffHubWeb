@@ -1,6 +1,3 @@
 export class itemWithId {
-
-    public id: string = '';
-
-    constructor() { }
+    public id?: string = '';
 }

@@ -1,5 +1,4 @@
 import { staffGroup } from "../model/staffGroup";
-import { memberShift } from "../model/memberShift";
 import moment from "moment";
 import { ITag } from "office-ui-fabric-react/lib/components/pickers/TagPicker/TagPicker.types";
 
@@ -24,7 +23,7 @@ export function GetMockUpClient() {
 }
 export function GetMockUpdate() {
     let teamStaffing:staffGroup  = new staffGroup();
-    let teamMembers:memberShift[] = [        
+  /*  let teamMembers:memberShift[] = [        
         { id:"1", name:'Pauline Console', email:'Console@infeeny.com', totalHours:0, pictureUrl:'', shiftArray:[
           {
             id:"toto1",
@@ -84,10 +83,10 @@ export function GetMockUpdate() {
           }                 
           ] }
     
-    ];
+    ];*/
     
     teamStaffing.name = "Modern WorkPlace";
-    teamStaffing.members = teamMembers;
+  //  teamStaffing.members = teamMembers;
 
     return teamStaffing;
 }

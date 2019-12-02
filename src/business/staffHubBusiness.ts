@@ -1,45 +1,22 @@
 import { staffGroup } from "../model/staffGroup";
 import { shift } from "../model/shift";
 import { memberShift } from "../model/memberShift";
-import { Config } from "../utils/constants";
-import { ResultBase } from "../model/httpRequest/resultbase";
+import memberBusiness from "./memberBusiness";
 
-export default class staffHubBusiness {
-
-    public static GetActivityById(_id: string) {
-        return new Promise<ResultBase<staffGroup>>((resolve, reject) => {
-        fetch(Config.ApiUrl.Activity.GetById.replace("{0}", _id), {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-            .then((resp: Response) => {
-                resp.json()
-                .then((res: ResultBase<staffGroup>) => {
-                    resolve(res);
-                });
-            })
-            .catch((error) => {
-                reject([]);
-            }) ;
-        });
-    }
-
-    public static AddNewClient(_clientList, _client) {
-        //Check if client exist or not
-        if(!_clientList.some(u => u.name.toLocaleLowerCase() === _client.toLocaleLowerCase())) {
-            _clientList.push({ key:_client.replace(" ", ""), name:_client })
-        }
-        return _clientList;
-    }
-
-    public static AddItem(_userEmail: string, _item: shift, _staffingGroup: staffGroup)
+export default class staffHubBusiness {    
+    public static AddNewEvent(_userEmail: string, _item: shift, _staffingGroup: staffGroup, _activityId: string)
     {
+        return new Promise<staffGroup>((resolve, reject) => {
         if(_staffingGroup.members.some(u => u.email === _userEmail)) {
-            let user: memberShift = _staffingGroup.members.find(u => u.email === _userEmail)!;    
+            let user: memberShift = _staffingGroup.members.find(u => u.email === _userEmail)!;   
+            
+            memberBusiness.AddMemberEvent(_userEmail, _item, _activityId).then((itemAdded) => {
+                _item.id = itemAdded.item!.id;
+            })
             user.shiftArray.push(_item);
+            resolve(_staffingGroup);
         }
-        return _staffingGroup;
+        });
     }
 
     public static UpdateItem(_userEmail: string, _itemId: string, _itemToUpdate: shift, _staffingGroup: staffGroup)
@@ -69,6 +46,7 @@ export default class staffHubBusiness {
         itemToUpdate[0].endMonth = endDateObj.getMonth()+1;
         itemToUpdate[0].endYear = endDateObj.getFullYear();
 
+        memberBusiness.UpdateMemberEvent(itemToUpdate[0]);
         return _staffingGroup
     }
 
@@ -79,7 +57,12 @@ export default class staffHubBusiness {
 
         if(_staffingGroup.members.some(u => u.email === _userEmail)) {
             let user: memberShift = _staffingGroup.members.find(u => u.email === _userEmail)!; 
-            user.shiftArray = user.shiftArray.filter(u => u.id !== _itemId)
+
+            let itemToDelte = user.shiftArray.filter(i => i.id === _itemId);
+            if(itemToDelte.length > 0) {
+                user.shiftArray = user.shiftArray.filter(u => u.id !== itemToDelte[0].id)
+                memberBusiness.DeleteMemberEvent(itemToDelte[0]);
+            }
         }
         return _staffingGroup;
     }

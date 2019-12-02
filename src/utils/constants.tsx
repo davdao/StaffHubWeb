@@ -18,9 +18,12 @@ export const Config = {
         },
         Member: {
             GetAll : BASE_URL + '/member',
-        },
-        Shift : {
-            GetAll : BASE_URL + '/shift',
+
+            Event : {
+                Add : BASE_URL + '/member/event/add?memberEmail={0}&activityId={1}',
+                Update : BASE_URL + '/member/event/update',
+                Delete : BASE_URL + '/member/event/delete',
+            }
         },
         Client :{
             GetAll : BASE_URL + '/client',
