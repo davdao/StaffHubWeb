@@ -6,7 +6,6 @@ import { DatePicker } from 'office-ui-fabric-react/lib/DatePicker';
 import { Dropdown } from 'office-ui-fabric-react/lib/components/Dropdown/Dropdown';
 import { colorCellsStaffHub, IconDelte, IconDeleteHover } from '../../../utils/constants';
 import { TagPicker } from 'office-ui-fabric-react/lib/components/pickers/TagPicker/TagPicker';
-import { SwatchColorPicker } from 'office-ui-fabric-react/lib/components/SwatchColorPicker/SwatchColorPicker';
 import { PrimaryButton } from 'office-ui-fabric-react/lib/components/Button/PrimaryButton/PrimaryButton';
 import { MessageBar } from 'office-ui-fabric-react/lib/components/MessageBar/MessageBar';
 import { MessageBarType } from 'office-ui-fabric-react/lib/components/MessageBar/MessageBar.types';
@@ -25,13 +24,24 @@ const EventForm = (props) => {
     const [showError, setShowError] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
 
+    //TODO à garder pour plus tard
+    /*
+                <div className={styles.row + " " + styles.newEventClient}>
+                    <span className={styles.newEventTitle}>{strings.staffHubNewFormColor}</span>
+                    <SwatchColorPicker onColorChanged={(prop) => { colorCellsStaffHub.some(u => u.id === prop) ? setEventColor(colorCellsStaffHub.find(u => u.id === prop)!.color) : setEventColor(colorCellsStaffHub[0].color) }} 
+                                        columnCount={5} 
+                                        cellShape={'circle'} 
+                                        colorCells={colorCellsStaffHub} 
+                                        selectedId={props.eventToUpdate ? colorCellsStaffHub.find(u => u.color === props.eventToUpdate.client.color)!.id : colorCellsStaffHub[0].id} />
+                </div>  
+                */
+
     return(
         <div className={styles.addNewEventModal}>
             {
                 showError &&
                 <MessageBar messageBarType={MessageBarType.error} isMultiline={true} onDismiss={() => setShowError(false)} dismissButtonAriaLabel="Close">{errorMessage}</MessageBar>
             }
-            
                 <div className={styles.row + " " + styles.newEventTitleEvent}>
                     <span className={styles.newEventTitle}>{strings.staffHubNewFormInputTitle}<span className={styles.required}>*</span></span>
                     <TextField defaultValue={eventTitle} autoFocus onChange={(event, value) => {setEventTitle(value!)}}/>
@@ -72,23 +82,14 @@ const EventForm = (props) => {
                             noResultsFoundText: strings.staffHubNewFormClientPickerNotFound
                         }}
                         itemLimit={1}
-                        defaultSelectedItems={props.clientList.filter(u => u.name === eventClient) }
-                        onInputChange={(value) => {  if(value !== "") {setEventClient(value)} return value} }                        
+                        defaultSelectedItems={props.clientList.filter(u => u.name === eventClient.name) }
                         onChange={(item: ITag[] | undefined) => { 
                             if(item!.length > 0) { 
                                 setEventClient(new client(item![0].name, item![0].key, item![0]["color"]))
                              } else { setEventClient(null) } }}
                         styles={ { root: { width: 250 } } }
                         />
-                </div> 
-                <div className={styles.row + " " + styles.newEventClient}>
-                    <span className={styles.newEventTitle}>{strings.staffHubNewFormColor}</span>
-                    <SwatchColorPicker onColorChanged={(prop) => { colorCellsStaffHub.some(u => u.id === prop) ? setEventColor(colorCellsStaffHub.find(u => u.id === prop)!.color) : setEventColor(colorCellsStaffHub[0].color) }} 
-                                        columnCount={5} 
-                                        cellShape={'circle'} 
-                                        colorCells={colorCellsStaffHub} 
-                                        selectedId={props.eventToUpdate ? colorCellsStaffHub.find(u => u.color === props.eventToUpdate.client.color)!.id : colorCellsStaffHub[0].id} />
-                </div>                 
+                </div>                
                 <div className={styles.row + " " + styles.newEventButton}>
                     {
                         props.eventToUpdate &&
@@ -139,7 +140,7 @@ const EventForm = (props) => {
             setErrorMessage(strings.staffHubNewFormSaveWarningErrorDate);
             result = false;
         }   
-        if(eventTitle === "" || eventClient === null ) {
+        if(eventTitle === "" || eventClient === null || eventClient === "") {
             setErrorMessage(strings.staffHubNewFormSaveWarningMissingProps)
             result = false;
         }
