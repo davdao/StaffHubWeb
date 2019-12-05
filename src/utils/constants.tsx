@@ -6,7 +6,7 @@ export const fixWidth = 100;
 export const fixWidthforBigEvent = 100.8;
 export const timelineGridTopShift = 22;
 
-const BASE_URL = "https://localhost:44355/api";
+const BASE_URL = "https://staffhub-api.azurewebsites.net/api";
 
 export const Config = {
     ApiUrl: {
