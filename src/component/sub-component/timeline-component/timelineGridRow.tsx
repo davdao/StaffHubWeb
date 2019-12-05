@@ -4,7 +4,7 @@ import strings from '../../../utils/resources';
 import { memberShift } from '../../../model/memberShift';
 import { GetInitialFromName } from '../../../utils/helper';
 import { shift } from '../../../model/shift';
-import { fixWidth, fixWidthforBigEvent, timelineGridTopShift } from '../../../utils/constants';
+import { fixWidth, timelineGridTopShift, fixWidth4_12Event, fixWidth12_16Event, fixWidth16_24Event, fixWidth24_28Event } from '../../../utils/constants';
 
 const TimelineGridRow = (props: { calendarDays: string[]; currentMember: memberShift; onOpenNewForm , currentMonthNumber: number, updateEvent}) => {    
     const [hours] = useState(0);
@@ -114,18 +114,33 @@ const TimelineGridRow = (props: { calendarDays: string[]; currentMember: memberS
             diffDays = _shift.endDay - _shift.startDay;                        
 
         diffDays++;
-        if(diffDays > 15)
-            fixWidthValue = fixWidthforBigEvent;
+        fixWidthValue = SetWidthShiftValue(diffDays, fixWidthValue);
         if(_shift.endMonth > _currentMonth) 
         {
             diffDays = _totalCalandarDays +1 - _currentDay;
-            if(diffDays > 15)
-                fixWidthValue = fixWidthforBigEvent;
+            fixWidthValue = SetWidthShiftValue(diffDays, fixWidthValue);
         }
         dynamicWithToReturn = (fixWidthValue*diffDays) + "%";
         return dynamicWithToReturn;
     }
 
+    function SetWidthShiftValue(_diffDays, _fixWidthValue) {
+        let fixWidthValueReturn = _fixWidthValue;
+
+        if(_diffDays >= 5 && _diffDays <= 12) {
+            fixWidthValueReturn = fixWidth4_12Event;
+        }
+        else if(_diffDays >= 13 && _diffDays <= 16) {
+            fixWidthValueReturn = fixWidth12_16Event;
+        }
+        else if(_diffDays >= 17 && _diffDays <= 24) {
+            fixWidthValueReturn = fixWidth16_24Event;
+        }
+        else if(_diffDays >= 25 && _diffDays <= 31) {
+            fixWidthValueReturn = fixWidth24_28Event;
+        }
+        return fixWidthValueReturn;
+    }
     function CheckOverlapEvent(_currentDay, _currentMonth) {
         let nbOverlapEventToReturn = 0;
         if(!usedGridShift)
