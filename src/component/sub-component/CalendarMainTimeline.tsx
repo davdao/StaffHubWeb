@@ -150,6 +150,7 @@ const CalendarMainTimeline = (props : { staffingGroup: staffGroup,
                 isLightDismiss={true}
                 type={PanelType.custom}
                 customWidth="500px"
+                styles={ { headerText:{ fontWeight:700, fontSize:18  } } }
                 headerText={strings.staffHubNewFormTitle + (panelUserName.length > 0 ? " \"" + panelUserName + "\"" : "")}>
                     <EventForm userEmail={panelUserEmail} 
                              selectedDate={selectedDate ? selectedDate : new Date()} 

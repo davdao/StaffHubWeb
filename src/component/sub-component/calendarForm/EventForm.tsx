@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import styles from '../../../utils/styles.module.scss';
 import strings from '../../../utils/resources';
-import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { DatePicker } from 'office-ui-fabric-react/lib/DatePicker';
 import { Dropdown } from 'office-ui-fabric-react/lib/components/Dropdown/Dropdown';
-import { colorCellsStaffHub, IconDelte, IconDeleteHover } from '../../../utils/constants';
+import { colorCellsStaffHub, IconCalendar, IconRightArrow, IconCustomer, IconDeleteHover, IconDelete } from '../../../utils/constants';
 import { TagPicker } from 'office-ui-fabric-react/lib/components/pickers/TagPicker/TagPicker';
-import { PrimaryButton } from 'office-ui-fabric-react/lib/components/Button/PrimaryButton/PrimaryButton';
 import { MessageBar } from 'office-ui-fabric-react/lib/components/MessageBar/MessageBar';
 import { MessageBarType } from 'office-ui-fabric-react/lib/components/MessageBar/MessageBar.types';
 import { ITag } from 'office-ui-fabric-react';
+import { PrimaryButton, Input } from 'msteams-ui-components-react';
 import { shift } from '../../../model/shift';
 import { client } from '../../../model/client';
 
@@ -35,7 +34,7 @@ const EventForm = (props) => {
                                         selectedId={props.eventToUpdate ? colorCellsStaffHub.find(u => u.color === props.eventToUpdate.client.color)!.id : colorCellsStaffHub[0].id} />
                 </div>  
                 */
-
+ 
     return(
         <div className={styles.addNewEventModal}>
             {
@@ -43,59 +42,77 @@ const EventForm = (props) => {
                 <MessageBar messageBarType={MessageBarType.error} isMultiline={true} onDismiss={() => setShowError(false)} dismissButtonAriaLabel="Close">{errorMessage}</MessageBar>
             }
                 <div className={styles.row + " " + styles.newEventTitleEvent}>
-                    <span className={styles.newEventTitle}>{strings.staffHubNewFormInputTitle}<span className={styles.required}>*</span></span>
-                    <TextField defaultValue={eventTitle} autoFocus onChange={(event, value) => {setEventTitle(value!)}}/>
+                    <div className={styles.newEventTitleInput}>
+                        <Input
+                            autoFocus
+                            className={styles.newEventTitleEvent}
+                            placeholder={strings.staffHubNewFormInputTitle}
+                            errorLabel={eventTitle == "" ? " " : ""}
+                            value={eventTitle}   
+                            onChange={(event) => setEventTitle  (event.target.value)}
+                            required />
+                    </div>
+
                 </div>
                 {
                     !props.eventToUpdate && props.listMembers.length > 0 &&
-                    <div className={styles.row + " " + styles.newEventClient}>
+                    <div className={styles.row}>
                         <span className={styles.newEventTitle}>{strings.staffHubNewFormDdlMembers}<span className={styles.required}>*</span></span>
                         <Dropdown onChange={(event, option) => setEvenMemberMail(option!.key.toString())} options={props.listMembers.map((u) => { return {key: u.email, text: u.memberName} })} styles={{ dropdown: { width: 200 }, dropdownItemsWrapper: { height: 220 } }}/>
                     </div>
                 }
                 <div className={styles.row + " " + styles.newEventStartDate}>
                     <div className={styles.dateFieldContainer}>
-                        <span className={styles.newEventTitle}>{strings.staffHubNewFormStartDatePicker}<span className={styles.required}>*</span></span>                    
+                        <div className={styles.iconSvg}>
+                            <IconCalendar />                            
+                        </div>
+                        <div className={styles.dateTimePicker} >
                         <DatePicker placeholder={strings.staffHubNewFormStartDatePickerTitle} 
                                     formatDate={(date) => OnFormatDate(date)}
                                     value={eventStartDate}
                                     onSelectDate={(date) => { setEventStartDate(date) }}
                                     ariaLabel={strings.staffHubNewFormStartDatePickerTitle} />
-                    </div>
-                </div>
-                <div className={styles.row + " " + styles.newEventStartDate}>
-                    <div className={styles.dateFieldContainer}>
-                        <span className={styles.newEventTitle}>{strings.staffHubNewFormEndtDatePicker}<span className={styles.required}>*</span></span>
+                        </div>
+                        <div className={styles.iconSvg}>
+                            <IconRightArrow />
+                        </div>
+                        <div className={styles.dateTimePicker} >
                         <DatePicker placeholder={strings.staffHubNewFormEndDatePickerTitle} 
                                     formatDate={(date) => OnFormatDate(date)}
                                     value={eventEndDate}
                                     onSelectDate={(date) => { setEventEndDate(date) }}
                                     ariaLabel={strings.staffHubNewFormEndDatePickerTitle} />
+                        </div>
                     </div>
-                </div>      
-                <div className={styles.row + " " + styles.newEventClient}>
-                    <span className={styles.newEventTitle}>{strings.staffHubNewFormCbBoxClient}<span className={styles.required}>*</span></span>
-                    <TagPicker
-                        onResolveSuggestions={OnFilterChanged}                    
-                        pickerSuggestionsProps={{
-                            suggestionsHeaderText: strings.staffHubNewFormClientPicker,
-                            noResultsFoundText: strings.staffHubNewFormClientPickerNotFound
-                        }}
-                        itemLimit={1}
-                        defaultSelectedItems={props.clientList.filter(u => u.name === eventClient.name) }
-                        onChange={(item: ITag[] | undefined) => { 
-                            if(item!.length > 0) { 
-                                setEventClient(new client(item![0].name, item![0].key, item![0]["color"]))
-                             } else { setEventClient(null) } }}
-                        styles={ { root: { width: 250 } } }
-                        />
-                </div>                
+                </div>   
+                <div className={styles.row}>
+                    <div className={styles.iconSvg}>
+                        <IconCustomer />
+                    </div>
+                    <div>
+                        <TagPicker
+                            onResolveSuggestions={OnFilterChanged}                    
+                            pickerSuggestionsProps={{
+                                suggestionsHeaderText: strings.staffHubNewFormClientPicker,
+                                noResultsFoundText: strings.staffHubNewFormClientPickerNotFound
+                            }}
+                            itemLimit={1}
+                            defaultSelectedItems={props.clientList.filter(u => u.name === eventClient) }
+                            onChange={(item: ITag[] | undefined) => { 
+                                if(item!.length > 0) { 
+                                    setEventClient(new client(item![0].name, item![0].key, item![0]["color"]))
+                                } else { setEventClient(null) } }}
+                            styles={ { root: { width: 250 } } }
+                            />
+                        </div>
+                </div>               
                 <div className={styles.row + " " + styles.newEventButton}>
                     {
                         props.eventToUpdate &&
                         <div className={styles.newEventDeleteButton} onClick={() => props.deleteEvent(props.eventToUpdate.id, props.userEmail)}>
                             <div className={styles.iconDelete}>
-                                <IconDelte />
+                                <IconDelete />
+    
                             </div>
                             <div className={styles.iconDeleteHover}>
                                 <IconDeleteHover />
@@ -103,8 +120,8 @@ const EventForm = (props) => {
                         </div>
                     }
                     <div className={styles.newEventSaveButton}>
-                        <PrimaryButton text={props.eventToUpdate ? strings.staffHubNewFormBtnEdit : strings.staffHubNewFormBtnSave} onClick={() => SaveEvent(props.eventToUpdate)}/>
-                    </div>                        
+                        <PrimaryButton onClick={() => SaveEvent(props.eventToUpdate)}>{props.eventToUpdate ? strings.staffHubNewFormBtnEdit : strings.staffHubNewFormBtnSave}</PrimaryButton>
+                    </div>  
                 </div>     
         </div>
     )

@@ -6,6 +6,7 @@ $mediumPlusGrey: #bebebe;
 $strongGrey: #919191;
 $white: #ffffff;
 $black: #000000;
+$TeamsColor: "#4B509E";
 
 body {
     font-family: "Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
@@ -28,7 +29,7 @@ body {
 
     .calendarHeaderParametersContainer {
         height: 50px; background-color: $infeenyColor; display: flex; color:$white;
-        .title { width: 280px; display:flex; flex-direction: column; justify-content: center; text-align: center; cursor:default; font-size:1.5em;}
+        .title { font-weight: 600; width: 280px; display:flex; flex-direction: column; justify-content: center; text-align: center; cursor:default; font-size:1.5em;}
         .btnContainerParameters{
             display: flex;
             .btnParameters{ display:flex; flex-direction: column; justify-content: center; text-align: center; margin-right: 25px; cursor:pointer;  }
@@ -128,33 +129,47 @@ body {
     }    
 }
 .addNewEventModal {
-    .row { margin-top: 25px; }
+    .row { margin-top: 25px; display: flex; }
     .required { color:red; margin-left: 5px!important; }
-    .newEventTitle { font-weight: bold; min-width: 120px; margin: auto 0 auto 0 }
+    .newEventTitle { font-weight: 400; font-size: 1.2rem;color:#4E586A }
+    .newEventTitleInput { width: 100%; }
     .newEventTitleEvent {
-        display: flex;
-        
+        input { height: inherit; padding-top: 6px; padding-bottom: 6px; }
     }
+    .iconSvg { 
+        svg { height: 20px; width: 20px; }
+        margin: auto 10px auto 0;}
     .newEventStartDate {
         display: flex; 
         .dateFieldContainer { 
-            span { font-weight: bold; min-width: 120px; margin:auto;}
-            width: 250px; display: flex;
+            > div { margin-right: 10px;}
+            svg { height: 20px; width: 20px; }
+            .dateTimePicker { width: 130px; }
+
+            span { min-width: 120px; margin:auto;}
+            display: flex;
             }
             > div {
                 margin-right: 10px;
             }
     }    
-    .newEventClient{ display: flex; }
     .newEventButton {
         position: absolute;bottom: 40px; width: 100%; display:flex; margin-left:-15px;
-        .newEventSaveButton { margin: auto 15px auto auto; }
+        .newEventSaveButton { 
+            button { height: inherit;}
+            margin: auto 15px auto auto;
+         }
         .newEventDeleteButton { 
-            height: 30px; width: 30px; margin-left: 15px; cursor:pointer;
-            .iconDelete { display: block; }
+            height: 40px; width:40px; display: flex;
+            svg { height: 21px; width:21px;}
+            button { height: inherit; min-width: 7rem; }
+            margin-left: 15px;
+            .iconDelete, .iconDeleteHover { margin:auto;}
+            .iconDelete {display: block; }
             .iconDeleteHover { display: none; }
         }
         .newEventDeleteButton:hover { 
+            svg { height: 40px; width:40px;}
             .iconDelete { display: none; }
             .iconDeleteHover { display: block; }
         }
