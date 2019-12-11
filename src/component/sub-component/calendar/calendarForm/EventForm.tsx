@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import styles from '../../../utils/styles.module.scss';
-import strings from '../../../utils/resources';
+import styles from '../../../../utils/styles.module.scss';
+import strings from '../../../../utils/resources';
 import { DatePicker } from 'office-ui-fabric-react/lib/DatePicker';
 import { Dropdown } from 'office-ui-fabric-react/lib/components/Dropdown/Dropdown';
-import { colorCellsStaffHub, IconCalendar, IconRightArrow, IconCustomer, IconDeleteHover, IconDelete } from '../../../utils/constants';
+import { IconCalendar, IconRightArrow, IconCustomer, IconDeleteHover, IconDelete } from '../../../../utils/constants';
 import { TagPicker } from 'office-ui-fabric-react/lib/components/pickers/TagPicker/TagPicker';
 import { MessageBar } from 'office-ui-fabric-react/lib/components/MessageBar/MessageBar';
 import { MessageBarType } from 'office-ui-fabric-react/lib/components/MessageBar/MessageBar.types';
 import { ITag } from 'office-ui-fabric-react';
 import { PrimaryButton, Input } from 'msteams-ui-components-react';
-import { shift } from '../../../model/shift';
-import { client } from '../../../model/client';
+import { shift } from '../../../../model/shift';
+import { client } from '../../../../model/client';
 
 const EventForm = (props) => {
 
@@ -19,7 +19,6 @@ const EventForm = (props) => {
     const [eventStartDate, setEventStartDate] = useState(props.eventToUpdate ? new Date(props.eventToUpdate.startDate) : props.selectedDate);
     const [eventEndDate, setEventEndDate] = useState(props.eventToUpdate ? new Date(props.eventToUpdate.endDate) : props.selectedDate);
     const [eventClient, setEventClient] = useState(props.eventToUpdate ? props.eventToUpdate.client : "");
-    const [eventColor, setEventColor] = useState(props.eventToUpdate ? props.eventToUpdate.color : colorCellsStaffHub[0].color);
     const [showError, setShowError] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
 
@@ -47,7 +46,7 @@ const EventForm = (props) => {
                             autoFocus
                             className={styles.newEventTitleEvent}
                             placeholder={strings.staffHubNewFormInputTitle}
-                            errorLabel={eventTitle == "" ? " " : ""}
+                            errorLabel={eventTitle === "" ? " " : ""}
                             value={eventTitle}   
                             onChange={(event) => setEventTitle  (event.target.value)}
                             required />

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import styles from '../../../utils/styles.module.scss';
-import strings from '../../../utils/resources';
-import { memberShift } from '../../../model/memberShift';
-import { GetInitialFromName } from '../../../utils/helper';
-import { shift } from '../../../model/shift';
-import { fixWidth, timelineGridTopShift, fixWidth4_12Event, fixWidth12_16Event, fixWidth16_24Event, fixWidth24_28Event } from '../../../utils/constants';
+import styles from '../../../../utils/styles.module.scss';
+import strings from '../../../../utils/resources';
+import { memberShift } from '../../../../model/memberShift';
+import { GetInitialFromName } from '../../../../utils/helper';
+import { shift } from '../../../../model/shift';
+import { fixWidth, timelineGridTopShift, fixWidth4_12Event, fixWidth12_16Event, fixWidth16_24Event, fixWidth24_28Event } from '../../../../utils/constants';
 
 const TimelineGridRow = (props: { calendarDays: string[]; currentMember: memberShift; onOpenNewForm , currentMonthNumber: number, updateEvent}) => {    
     const [hours] = useState(0);

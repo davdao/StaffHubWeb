@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { staffGroup } from '../../model/staffGroup';
-import strings from '../../utils/resources';
-import styles from '../../utils/styles.module.scss';
+import { staffGroup } from '../../../model/staffGroup';
+import strings from '../../../utils/resources';
+import styles from '../../../utils/styles.module.scss';
 import TimelineGridRow from './timeline-component/timelineGridRow';
-import { memberShift } from '../../model/memberShift';
+import { memberShift } from '../../../model/memberShift';
 import moment from 'moment';
 import { MessageBar } from 'office-ui-fabric-react/lib/components/MessageBar/MessageBar';
 import TimelineCommandBar from './timeline-component/timelineCommandBar';

@@ -1,10 +1,10 @@
 import * as React from 'react';
-import styles from '../../utils/styles.module.scss';
-import strings from '../../utils/resources';
-import { IconRightChevron, IconLeftChevron } from '../../utils/constants';
+import styles from '../../../utils/styles.module.scss';
+import strings from '../../../utils/resources';
+import { IconRightChevron, IconLeftChevron } from '../../../utils/constants';
 import moment from 'moment';
 
-const CalendarHeaderTimeline = (props : { getCalendarCurrentDate: ((_date:string) => void), resetCalendarCurrentDate: (() => void), calendarMonthName: string, calendarYearName: string } ) => {
+const CalendarMonthSelectorTimeline = (props : { getCalendarCurrentDate: ((_date:string) => void), resetCalendarCurrentDate: (() => void), calendarMonthName: string, calendarYearName: string } ) => {
 
     function NextMonth(){        
         let date = moment()
@@ -41,4 +41,4 @@ const CalendarHeaderTimeline = (props : { getCalendarCurrentDate: ((_date:string
 
 }
 
-export default CalendarHeaderTimeline;
+export default CalendarMonthSelectorTimeline;

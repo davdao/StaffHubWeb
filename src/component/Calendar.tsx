@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import CalendarMainTimeline from './sub-component/CalendarMainTimeline';
-import CalendarHeaderTimeline from './sub-component/CalendarHeaderTimeline';
-import CalendarHeaderParameters from './sub-component/CalendarHeaderParameters';
+import CalendarMainTimeline from './sub-component/calendar/CalendarMainTimeline';
+import CalendarMonthSelectorTimeline from './sub-component/calendar/CalendarMonthSelectorTimeline';
+import CalendarHeaderParameters from './sub-component/header/CalendarHeaderParameters';
 import { initializeIcons, MessageBarType, ITag } from 'office-ui-fabric-react'
 import { getDaysArrayByMonth } from '../utils/helper';
 import strings from '../utils/resources';
@@ -11,6 +11,7 @@ import { ResultBase } from '../model/httpRequest/resultbase';
 import { client } from '../model/client';
 import clientBusiness from '../business/clientBusiness';
 import activityBusiness from '../business/activityBusiness';
+import Parameter from './sub-component/parameter/Parameter';
 
 const Calendar = () => {
     initializeIcons();
@@ -26,11 +27,12 @@ const Calendar = () => {
     const [calendarDays, setCalendarDays] = useState(getDaysArrayByMonth(calendarMonthName, calendarYearName));    
     const [timelineMessage, setTimelineMessage] = useState("");
     const [timelineTypeMessage, setTimelineTypeMessage] = useState();
+    const [planningSelected, setPlanningSelected] = useState(true);
 
     useEffect(() => {        
         activityBusiness.GetActivityById(activityId).then((result:ResultBase<staffGroup>) => {  setStaffingGroup(result.item!); }) 
         clientBusiness.GetAllClient().then((result:ResultBase<client>) => { setClientList(result.data.map((item) => ({ key: item.id!, name: item.name, color: item.color }))); }) 
-    }, [])
+    }, [activityId])
 
     function resetCurrentCalndarDate() 
     {
@@ -81,28 +83,40 @@ const Calendar = () => {
         setTimelineMessage("");
         setTimelineTypeMessage(undefined);
     }
-      
+     
+    function SetBtnParameters(value) {
+        setPlanningSelected(value);
+    }
+
     return(
         <div>
             <div>
-                <CalendarHeaderParameters />
-                <CalendarHeaderTimeline getCalendarCurrentDate={setCurrentCalendarDate} 
-                                        resetCalendarCurrentDate={resetCurrentCalndarDate}
-                                        calendarMonthName={calendarMonthName}
-                                        calendarYearName={calendarYearName} />
-                <CalendarMainTimeline   staffingGroup={staffingGroup} 
-                                        clientList={clientList}
-                                        currentDays={calendarCurrentDay}
-                                        calendarDays={calendarDays}
-                                        calendarYearName={calendarYearName}
-                                        calendarMonthName={calendarMonthName}
-                                        ClearMessage={ClearMessage}
-                                        timelineMessage={timelineMessage}
-                                        timelineTypeMessage={timelineTypeMessage}
-                                        AddEvent={AddEvent}
-                                        UpdateEvent={UpdateEvent}
-                                        DeleteEvent={DeleteEvent}
-                                        />
+                <CalendarHeaderParameters OnClickedHeaderBtn={(e) => SetBtnParameters(e)} planningSelected={planningSelected}/>                
+                {
+                    planningSelected ?
+                        <CalendarMonthSelectorTimeline getCalendarCurrentDate={setCurrentCalendarDate} 
+                                                        resetCalendarCurrentDate={resetCurrentCalndarDate}
+                                                        calendarMonthName={calendarMonthName}
+                                                        calendarYearName={calendarYearName} />
+                        &&
+                        <CalendarMainTimeline staffingGroup={staffingGroup} 
+                                              clientList={clientList}
+                                              currentDays={calendarCurrentDay}
+                                              calendarDays={calendarDays}
+                                              calendarYearName={calendarYearName}
+                                              calendarMonthName={calendarMonthName}
+                                              ClearMessage={ClearMessage}
+                                              timelineMessage={timelineMessage}
+                                              timelineTypeMessage={timelineTypeMessage}
+                                              AddEvent={AddEvent}
+                                              UpdateEvent={UpdateEvent}
+                                              DeleteEvent={DeleteEvent} />                                                                   
+                    :
+                        <Parameter staffingGroup={staffingGroup} 
+                                   clientList={clientList}/>
+                }
+                                                
+                
             </div>
         </div>
     )
