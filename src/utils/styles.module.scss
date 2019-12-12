@@ -195,3 +195,22 @@ body {
         }
     }
 }
+
+.updateCategoryMemberForm {
+    height: 500px;
+    .updateCategoryMemberFormRow {
+        margin-bottom: 15px;
+        .newCategoryTitleEvent input{
+            height: 40px;
+        }
+    }  
+    .updateCategoryMemberSaveButton{
+        button { height: inherit;}
+        position: fixed; bottom: 35px; right: 15px;
+    }  
+}
+
+.dropdownoption {
+    display: flex;
+    .optionColor { height: 15px; width: 15px; border-radius: 15px; margin: auto 10px auto 0px;}
+}

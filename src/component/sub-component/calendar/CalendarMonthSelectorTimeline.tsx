@@ -38,7 +38,6 @@ const CalendarMonthSelectorTimeline = (props : { getCalendarCurrentDate: ((_date
                 </div>
         </div>
     );
-
 }
 
 export default CalendarMonthSelectorTimeline;

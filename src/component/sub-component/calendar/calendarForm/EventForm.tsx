@@ -48,7 +48,7 @@ const EventForm = (props) => {
                             placeholder={strings.staffHubNewFormInputTitle}
                             errorLabel={eventTitle === "" ? " " : ""}
                             value={eventTitle}   
-                            onChange={(event) => setEventTitle  (event.target.value)}
+                            onChange={(event) => setEventTitle(event.target.value)}
                             required />
                     </div>
 
@@ -57,7 +57,7 @@ const EventForm = (props) => {
                     !props.eventToUpdate && props.listMembers.length > 0 &&
                     <div className={styles.row}>
                         <span className={styles.newEventTitle}>{strings.staffHubNewFormDdlMembers}<span className={styles.required}>*</span></span>
-                        <Dropdown onChange={(event, option) => setEvenMemberMail(option!.key.toString())} options={props.listMembers.map((u) => { return {key: u.email, text: u.memberName} })} styles={{ dropdown: { width: 200 }, dropdownItemsWrapper: { height: 220 } }}/>
+                        <Dropdown onChange={(event, option) => setEvenMemberMail(option!.key.toString())} options={props.listMembers.map((u) => { return {key: u.email, text: u.memberName} })} style={{ width:200 }}/>
                     </div>
                 }
                 <div className={styles.row + " " + styles.newEventStartDate}>

@@ -44,7 +44,10 @@ let strings = new LocalizedStrings({
         staffHubParametersClients: 'Clients',
         staffHubParametersMembers: 'Membres',
         staffHubParametersName: 'Nom',
-        staffHubParametersEmail: 'Emails'
+        staffHubParametersEmail: 'Emails',
+        staffHubParametersBtnSave: 'Sauvegarder',
+        staffHubParametersEditFormTitle: 'Modifier \'{0}\'',
+        staffHubParametersAddFormTitle: 'Ajouter'
     }
 });
 
