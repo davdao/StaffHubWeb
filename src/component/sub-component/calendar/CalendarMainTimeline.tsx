@@ -6,7 +6,6 @@ import TimelineGridRow from './timeline-component/timelineGridRow';
 import { memberShift } from '../../../model/memberShift';
 import moment from 'moment';
 import { MessageBar } from 'office-ui-fabric-react/lib/components/MessageBar/MessageBar';
-import TimelineCommandBar from './timeline-component/timelineCommandBar';
 import { Panel } from 'office-ui-fabric-react/lib/components/Panel/Panel';
 import EventForm from './calendarForm/EventForm';
 import { PanelType } from 'office-ui-fabric-react/lib/components/Panel/Panel.types';
@@ -120,7 +119,6 @@ const CalendarMainTimeline = (props : { staffingGroup: staffGroup,
                         </div>
                     </div>
                     <div className={styles.timelineGroupContainerName}>                        
-                        <TimelineCommandBar OnOpenNewForm={() => OnOpenNewForm("", "")}/>
                         <div className={styles.timelineGroupContainerNameTitle}>
                             {props.staffingGroup.name}
                         </div>
