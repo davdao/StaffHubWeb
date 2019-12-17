@@ -39,6 +39,15 @@ let strings = new LocalizedStrings({
         staffHubNewFormBtnNew: 'Nouveau',
         staffHubNewFormSaveWarningMissingProps: 'Vous devez remplir tous les champs obligatoire avant de valider le formulaire',
         staffHubNewFormSaveWarningErrorDate: 'La date de début ne doit pas être supérieur à la date de fin',
+        staffHubParametersTitle: 'Titre',
+        staffHubParametersColor: 'Couleur',
+        staffHubParametersClients: 'Clients',
+        staffHubParametersMembers: 'Membres',
+        staffHubParametersName: 'Nom',
+        staffHubParametersEmail: 'Emails',
+        staffHubParametersBtnSave: 'Sauvegarder',
+        staffHubParametersEditFormTitle: 'Modifier \'{0}\'',
+        staffHubParametersAddFormTitle: 'Ajouter'
     }
 });
 

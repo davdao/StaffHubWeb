@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../../../utils/styles.module.scss';
+import styles from '../../../../utils/styles.module.scss';
 import { CommandBar } from 'office-ui-fabric-react/lib/components/CommandBar/CommandBar';
 import { ICommandBarItemProps } from 'office-ui-fabric-react/lib/components/CommandBar/CommandBar.types';
   

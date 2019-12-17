@@ -126,7 +126,27 @@ body {
             
         }
         
-    }    
+    }   
+    
+    .parameterView{
+        
+        .parameterViewRow{
+            padding: 15px;
+            display: flex;
+
+            
+            .parameterViewRowTitle {
+                font-weight: 600;
+                min-width: 120px;
+            }
+            
+            .parameterViewRowContent {
+                flex: 1;
+                max-width: 400px;
+            }
+        }
+    }
+    
 }
 .addNewEventModal {
     .row { margin-top: 25px; display: flex; }
@@ -174,4 +194,23 @@ body {
             .iconDeleteHover { display: block; }
         }
     }
+}
+
+.updateCategoryMemberForm {
+    height: 500px;
+    .updateCategoryMemberFormRow {
+        margin-bottom: 15px;
+        .newCategoryTitleEvent input{
+            height: 40px;
+        }
+    }  
+    .updateCategoryMemberSaveButton{
+        button { height: inherit;}
+        position: fixed; bottom: 35px; right: 15px;
+    }  
+}
+
+.dropdownoption {
+    display: flex;
+    .optionColor { height: 15px; width: 15px; border-radius: 15px; margin: auto 10px auto 0px;}
 }
