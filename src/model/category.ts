@@ -1,6 +1,6 @@
 import { itemWithId } from "./itemWithId";
 
-export class client extends itemWithId {
+export class category extends itemWithId {
     name: string = '';
     color: string = '';
 

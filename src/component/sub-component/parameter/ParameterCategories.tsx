@@ -4,8 +4,8 @@ import { ITag } from 'office-ui-fabric-react/lib/components/pickers/TagPicker/Ta
 import { DetailsList } from 'office-ui-fabric-react/lib/components/DetailsList/DetailsList';
 import { IColumn, CheckboxVisibility, DetailsListLayoutMode, IDetailsRowProps, DetailsRow } from 'office-ui-fabric-react';
 
-const ParameterCategories = (props : { clientList: Array<ITag>, UpdateCategory:((e) => void) } ) => {  
-    const [allClients, setAllClients] = useState(GetAllClientsFromList(props.clientList));
+const ParameterCategories = (props : { categoryList: Array<ITag>, UpdateCategory:((e) => void) } ) => {  
+    const [allClients, setAllClients] = useState(GetAllClientsFromList(props.categoryList));
     const columnArray : IColumn[] = [
                                         {
                                         key: 'title',

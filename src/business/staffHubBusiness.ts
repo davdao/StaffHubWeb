@@ -33,7 +33,7 @@ export default class staffHubBusiness {
         itemToUpdate[0].title = _itemToUpdate.title;
         itemToUpdate[0].startDate = _itemToUpdate.startDate;
         itemToUpdate[0].endDate = _itemToUpdate.endDate;
-        itemToUpdate[0].client = _itemToUpdate.client;
+        itemToUpdate[0].category = _itemToUpdate.category;
         itemToUpdate[0].color = _itemToUpdate.color;
         
         let startDateObj = new Date(_itemToUpdate.startDate);

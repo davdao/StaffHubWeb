@@ -1,18 +1,18 @@
 import { Config } from "../utils/constants";
 import { ResultBase } from "../model/httpRequest/resultbase";
-import { client } from "../model/client";
+import { category } from "../model/category";
 
 export default class clientBusiness {
     public static  GetAllClient() {
-        return new Promise<ResultBase<client>>((resolve, reject) => {
-            fetch(Config.ApiUrl.Client.GetAll, {
+        return new Promise<ResultBase<category>>((resolve, reject) => {
+            fetch(Config.ApiUrl.Category.GetAll, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
             })
                 .then((resp: Response) => {
                     resp.json()
-                    .then((res: ResultBase<client>) => {
+                    .then((res: ResultBase<category>) => {
                         resolve(res);
                     });
                 })
@@ -23,8 +23,8 @@ export default class clientBusiness {
     }
     
     public static AddCategory(_category) {
-        return new Promise<ResultBase<client>>((resolve, reject) => {
-            fetch(Config.ApiUrl.Client.Add, {
+        return new Promise<ResultBase<category>>((resolve, reject) => {
+            fetch(Config.ApiUrl.Category.Add, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -36,7 +36,7 @@ export default class clientBusiness {
             })
                 .then((resp: Response) => {
                     resp.json()
-                    .then((res: ResultBase<client>) => {
+                    .then((res: ResultBase<category>) => {
                         resolve(res);
                     });
                 })
@@ -45,23 +45,10 @@ export default class clientBusiness {
                 }) ;
             });
     }
-/*
-method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    "Title" : _item.title,
-                    "StartDate": _item.startDate,
-                    "EndDate" : _item.endDate,
-                    "Client": {
-                        "Name" : _item.client.name,
-                        "Id" : _item.client.id
-                    }
-                }),*/
+
     public static UpdateCategory(_category) {
-        return new Promise<ResultBase<client>>((resolve, reject) => {
-            fetch(Config.ApiUrl.Client.Update, {
+        return new Promise<ResultBase<category>>((resolve, reject) => {
+            fetch(Config.ApiUrl.Category.Update, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -74,7 +61,7 @@ method: 'POST',
             })
                 .then((resp: Response) => {
                     resp.json()
-                    .then((res: ResultBase<client>) => {
+                    .then((res: ResultBase<category>) => {
                         resolve(res);
                     });
                 })
