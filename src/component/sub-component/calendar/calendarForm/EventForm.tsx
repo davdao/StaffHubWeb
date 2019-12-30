@@ -18,7 +18,7 @@ const EventForm = (props) => {
     const [evenMemberMail, setEvenMemberMail] = useState("");
     const [eventStartDate, setEventStartDate] = useState(props.eventToUpdate ? new Date(props.eventToUpdate.startDate) : props.selectedDate);
     const [eventEndDate, setEventEndDate] = useState(props.eventToUpdate ? new Date(props.eventToUpdate.endDate) : props.selectedDate);
-    const [eventClient, setEventClient] = useState(props.eventToUpdate ? props.eventToUpdate.category : "");
+    const [eventCategory, setEventCategory] = useState(props.eventToUpdate ? props.eventToUpdate.category : "");
     const [showError, setShowError] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
 
@@ -92,15 +92,15 @@ const EventForm = (props) => {
                         <TagPicker
                             onResolveSuggestions={OnFilterChanged}                    
                             pickerSuggestionsProps={{
-                                suggestionsHeaderText: strings.staffHubNewFormClientPicker,
-                                noResultsFoundText: strings.staffHubNewFormClientPickerNotFound
+                                suggestionsHeaderText: strings.staffHubNewFormCategoryPicker,
+                                noResultsFoundText: strings.staffHubNewFormCategoryPickerNotFound
                             }}
                             itemLimit={1}
-                            defaultSelectedItems={props.categoryList.filter(u => u.name === eventClient) }
+                            defaultSelectedItems={props.categoryList.filter(u => u.name === eventCategory) }
                             onChange={(item: ITag[] | undefined) => { 
                                 if(item!.length > 0) { 
-                                    setEventClient(new category(item![0].name, item![0].key, item![0]["color"]))
-                                } else { setEventClient(null) } }}
+                                    setEventCategory(new category(item![0].name, item![0].key, item![0]["color"]))
+                                } else { setEventCategory(null) } }}
                             styles={ { root: { width: 250 } } }
                             />
                         </div>
@@ -134,7 +134,7 @@ const EventForm = (props) => {
                     title : eventTitle,
                     startDate: (new Date(eventStartDate - tzoffset)).toISOString().slice(0, -1),
                     endDate: (new Date(eventEndDate - tzoffset)).toISOString().slice(0, -1),
-                    category: eventClient
+                    category: eventCategory
                 }))
             }
             //We create a new event
@@ -143,7 +143,7 @@ const EventForm = (props) => {
                     title : eventTitle,
                     startDate: (new Date(eventStartDate - tzoffset)).toISOString().slice(0, -1),
                     endDate: (new Date(eventEndDate - tzoffset)).toISOString().slice(0, -1),
-                    category: eventClient
+                    category: eventCategory
                 }));
             }            
         }
@@ -156,13 +156,13 @@ const EventForm = (props) => {
             setErrorMessage(strings.staffHubNewFormSaveWarningErrorDate);
             result = false;
         }   
-        if(eventTitle === "" || eventClient === null || eventClient === "") {
+        if(eventTitle === "" || eventCategory === null || eventCategory === "") {
             setErrorMessage(strings.staffHubNewFormSaveWarningMissingProps)
             result = false;
         }
 
         if(!_eventToModify && typeof(_eventToModify) != 'undefined') {
-            if(eventTitle === "" || eventClient === null || evenMemberMail === "" ) {
+            if(eventTitle === "" || eventCategory === null || evenMemberMail === "" ) {
                 setErrorMessage(strings.staffHubNewFormSaveWarningMissingProps)
                 result = false;
             }

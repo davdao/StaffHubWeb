@@ -5,7 +5,7 @@ import { DetailsList } from 'office-ui-fabric-react/lib/components/DetailsList/D
 import { IColumn, CheckboxVisibility, DetailsListLayoutMode, IDetailsRowProps, DetailsRow } from 'office-ui-fabric-react';
 
 const ParameterCategories = (props : { categoryList: Array<ITag>, UpdateCategory:((e) => void) } ) => {  
-    const [allClients, setAllClients] = useState(GetAllClientsFromList(props.categoryList));
+    const [allCategories, setAllCategories] = useState(GetAllCategoriesFromList(props.categoryList));
     const columnArray : IColumn[] = [
                                         {
                                         key: 'title',
@@ -28,7 +28,7 @@ const ParameterCategories = (props : { categoryList: Array<ITag>, UpdateCategory
 
     return(
             <DetailsList
-                items = {allClients}
+                items = {allCategories}
                 columns = {columns}
                 onRenderRow = {_renderRow}
                 checkboxVisibility = { CheckboxVisibility.hidden }
@@ -45,9 +45,9 @@ const ParameterCategories = (props : { categoryList: Array<ITag>, UpdateCategory
       );
     }
 
-    function GetAllClientsFromList(_clientList) {
-        let items = _clientList.map((client) => {
-            return { ID: client.key, Titre : client.name, color : client.color }
+    function GetAllCategoriesFromList(_categoryList) {
+        let items = _categoryList.map((category) => {
+            return { ID: category.key, Titre : category.name, color : category.color }
         });
         return items;
     }
@@ -64,8 +64,8 @@ const ParameterCategories = (props : { categoryList: Array<ITag>, UpdateCategory
             newCol.isSortedDescending = true;
           }
         });
-        const newItems = _copyAndSort(allClients, currColumn.fieldName!, currColumn.isSortedDescending);
-        setAllClients(newItems);
+        const newItems = _copyAndSort(allCategories, currColumn.fieldName!, currColumn.isSortedDescending);
+        setAllCategories(newItems);
         setColumns(newColumns);
       }
 

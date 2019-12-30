@@ -9,7 +9,7 @@ import { PanelType } from 'office-ui-fabric-react/lib/components/Panel/Panel.typ
 import { Panel } from 'office-ui-fabric-react/lib/components/Panel/Panel';
 import ParameterEditFormCategories from './ParameterEditFormCategories';
 import ParameterEditFormMember from './ParameterEditFormMember';
-import clientBusiness from '../../../business/clientBusiness';
+import categoryBusiness from '../../../business/categoryBusiness';
 
 const Parameter = (props : { staffingGroup: staffGroup, 
                             categoryList: Array<ITag> } ) => {
@@ -24,7 +24,7 @@ const Parameter = (props : { staffingGroup: staffGroup,
             <div className={styles.parameterViewRow}>
                 <div className={styles.parameterViewRowTitle}>
                     <span>
-                        {strings.staffHubParametersClients}
+                        {strings.staffHubParametersCategory}
                     </span>
                     <div>
                         <a href="#" onClick={() => OpenCategoryEditForm()} >{"Ajouter catégorie"}</a>
@@ -98,7 +98,7 @@ const Parameter = (props : { staffingGroup: staffGroup,
     function UpdateCategory(newTitle: string, newCategoryColor: string) {
         setShowPanel(false);
 
-        clientBusiness.UpdateCategory({id: categoryToUpdate.key, name: newTitle, color: newCategoryColor})
+        categoryBusiness.UpdateCategory({id: categoryToUpdate.key, name: newTitle, color: newCategoryColor})
     }
 
     function DeletCategory() {
@@ -106,7 +106,7 @@ const Parameter = (props : { staffingGroup: staffGroup,
     }
     function AddCategory(newTitle: string, newCategoryColor: string) {
         setShowPanel(false);
-        clientBusiness.AddCategory({name: newTitle, color: newCategoryColor})
+        categoryBusiness.AddCategory({name: newTitle, color: newCategoryColor})
     }
 }
 export default Parameter;

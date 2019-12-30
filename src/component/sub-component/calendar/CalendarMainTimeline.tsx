@@ -153,7 +153,7 @@ const CalendarMainTimeline = (props : { staffingGroup: staffGroup,
                     <EventForm userEmail={panelUserEmail} 
                              selectedDate={selectedDate ? selectedDate : new Date()} 
                              listMembers={selectedDate ? [] : props.staffingGroup.members}
-                             clientList={props.categoryList}
+                             categoryList={props.categoryList}
                              eventToUpdate={eventToModify}
                              updateEvent={(eventId, userEmail, event) => { setShowPanel(false); props.UpdateEvent(eventId, userEmail, event)}}
                              deleteEvent={(eventId, userEmail) => { setShowPanel(false); props.DeleteEvent(eventId, userEmail)}}
