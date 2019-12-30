@@ -8,19 +8,19 @@ import strings from '../utils/resources';
 import { staffGroup } from '../model/staffGroup';
 import staffHubBusiness from '../business/staffHubBusiness';
 import { ResultBase } from '../model/httpRequest/resultbase';
-import { client } from '../model/client';
+import { category } from '../model/category';
 import clientBusiness from '../business/clientBusiness';
 import activityBusiness from '../business/activityBusiness';
 import Parameter from './sub-component/parameter/Parameter';
 
-const Calendar = () => {
+const Calendar = (props : { urlParameters: string} ) => {
     initializeIcons();
-
+    
     let currentDate = new Date().toLocaleDateString('fr-FR', { month: 'long', day: 'numeric', year: 'numeric' }).split(" ");
     
-    const [activityId] = useState('1');
+    const [activityId] = useState(GetAcitivtyId(props.urlParameters));
     const [staffingGroup, setStaffingGroup] = useState(new staffGroup());
-    const [clientList, setClientList] = useState(new Array<ITag>());
+    const [categoryList, setCategoryList] = useState(new Array<ITag>());
     const [calendarCurrentDay] = useState(currentDate[0]);
     const [calendarMonthName, setCalendarMonthName] = useState(currentDate[1]);
     const [calendarYearName, setCalendarYearName] = useState(currentDate[2]);
@@ -31,8 +31,16 @@ const Calendar = () => {
 
     useEffect(() => {        
         activityBusiness.GetActivityById(activityId).then((result:ResultBase<staffGroup>) => {  setStaffingGroup(result.item!); }) 
-        clientBusiness.GetAllClient().then((result:ResultBase<client>) => { setClientList(result.data.map((item) => ({ key: item.id!, name: item.name, color: item.color }))); }) 
+        clientBusiness.GetAllClient().then((result:ResultBase<category>) => { setCategoryList(result.data.map((item) => ({ key: item.id!, name: item.name, color: item.color }))); }) 
     }, [activityId])
+
+    function GetAcitivtyId(_url: string) {
+        let returnValue = '1';
+        if(_url.indexOf("activityId") != -1)
+            returnValue = _url.split('=')[1];
+        
+        return returnValue;
+    }
 
     function resetCurrentCalndarDate() 
     {
@@ -100,7 +108,7 @@ const Calendar = () => {
                                                         calendarYearName={calendarYearName} />
                         &&
                         <CalendarMainTimeline staffingGroup={staffingGroup} 
-                                              clientList={clientList}
+                                              categoryList={categoryList}
                                               currentDays={calendarCurrentDay}
                                               calendarDays={calendarDays}
                                               calendarYearName={calendarYearName}
@@ -113,7 +121,7 @@ const Calendar = () => {
                                               DeleteEvent={DeleteEvent} />                                                                   
                     :
                         <Parameter staffingGroup={staffingGroup} 
-                                   clientList={clientList}/>
+                                categoryList={categoryList}/>
                 }
                                                 
                 

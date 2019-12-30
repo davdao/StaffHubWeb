@@ -1,12 +1,12 @@
 import { NewGuid } from "../utils/helper";
-import { client } from "./client";
+import { category } from "./category";
 import { itemWithId } from "./itemWithId";
 
 export class shift extends itemWithId {
     title: string = '';
     startDate: string = '';
     endDate: string = '';
-    client: client = new client("", "", "");
+    category: category = new category("", "", "");
     color?: string = '';
 
     startYear?: number = 0;
@@ -24,7 +24,7 @@ export class shift extends itemWithId {
             this.title = item.title;
             this.startDate = item.startDate;
             this.endDate = item.endDate;
-            this.client = item.client;
+            this.category = item.category;
             this.color = item.color;
 
             let startDateObj = new Date(item.startDate);            

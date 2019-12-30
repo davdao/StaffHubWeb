@@ -27,11 +27,11 @@ export const Config = {
                 Delete : BASE_URL + '/member/event/delete',
             }
         },
-        Client :{
-            GetAll : BASE_URL + '/client',
-            Add : BASE_URL + '/client',
-            Update : BASE_URL + '/client/update',
-            Delete : BASE_URL + '/client'
+        Category :{
+            GetAll : BASE_URL + '/category',
+            Add : BASE_URL + '/category',
+            Update : BASE_URL + '/category/update',
+            Delete : BASE_URL + '/category'
         }
     }
 }

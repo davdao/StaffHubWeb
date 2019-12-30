@@ -12,7 +12,7 @@ import ParameterEditFormMember from './ParameterEditFormMember';
 import clientBusiness from '../../../business/clientBusiness';
 
 const Parameter = (props : { staffingGroup: staffGroup, 
-                             clientList: Array<ITag> } ) => {
+                            categoryList: Array<ITag> } ) => {
 
     const [showPanel, setShowPanel] = useState(false);  
     const [showCategoryEditForm, setShowCategoryEditForm] = useState(false); 
@@ -31,7 +31,7 @@ const Parameter = (props : { staffingGroup: staffGroup,
                     </div>
                 </div>
                 <div className={styles.parameterViewRowContent}>
-                    <ParameterCategories clientList={props.clientList} UpdateCategory={OpenCategoryEditForm} />
+                    <ParameterCategories categoryList={props.categoryList} UpdateCategory={OpenCategoryEditForm} />
                 </div>
             </div>
             <div className={styles.parameterViewRow}>
@@ -80,8 +80,8 @@ const Parameter = (props : { staffingGroup: staffGroup,
         setShowCategoryEditForm(true);
         setMemberToUpdate(null);
 
-        if(props.clientList.some(i => i.key === _categoryId))
-            setCategoryToUpdate(props.clientList.filter(i => i.key === _categoryId)[0]);
+        if(props.categoryList.some(i => i.key === _categoryId))
+            setCategoryToUpdate(props.categoryList.filter(i => i.key === _categoryId)[0]);
             
         if(!_categoryId)
             setCategoryToUpdate(null);

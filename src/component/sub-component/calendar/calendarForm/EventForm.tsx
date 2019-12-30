@@ -10,7 +10,7 @@ import { MessageBarType } from 'office-ui-fabric-react/lib/components/MessageBar
 import { ITag } from 'office-ui-fabric-react';
 import { PrimaryButton, Input } from 'msteams-ui-components-react';
 import { shift } from '../../../../model/shift';
-import { client } from '../../../../model/client';
+import { category } from '../../../../model/category';
 
 const EventForm = (props) => {
 
@@ -18,7 +18,7 @@ const EventForm = (props) => {
     const [evenMemberMail, setEvenMemberMail] = useState("");
     const [eventStartDate, setEventStartDate] = useState(props.eventToUpdate ? new Date(props.eventToUpdate.startDate) : props.selectedDate);
     const [eventEndDate, setEventEndDate] = useState(props.eventToUpdate ? new Date(props.eventToUpdate.endDate) : props.selectedDate);
-    const [eventClient, setEventClient] = useState(props.eventToUpdate ? props.eventToUpdate.client : "");
+    const [eventClient, setEventClient] = useState(props.eventToUpdate ? props.eventToUpdate.category : "");
     const [showError, setShowError] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
 
@@ -30,7 +30,7 @@ const EventForm = (props) => {
                                         columnCount={5} 
                                         cellShape={'circle'} 
                                         colorCells={colorCellsStaffHub} 
-                                        selectedId={props.eventToUpdate ? colorCellsStaffHub.find(u => u.color === props.eventToUpdate.client.color)!.id : colorCellsStaffHub[0].id} />
+                                        selectedId={props.eventToUpdate ? colorCellsStaffHub.find(u => u.color === props.eventToUpdate.category.color)!.id : colorCellsStaffHub[0].id} />
                 </div>  
                 */
  
@@ -96,10 +96,10 @@ const EventForm = (props) => {
                                 noResultsFoundText: strings.staffHubNewFormClientPickerNotFound
                             }}
                             itemLimit={1}
-                            defaultSelectedItems={props.clientList.filter(u => u.name === eventClient) }
+                            defaultSelectedItems={props.categoryList.filter(u => u.name === eventClient) }
                             onChange={(item: ITag[] | undefined) => { 
                                 if(item!.length > 0) { 
-                                    setEventClient(new client(item![0].name, item![0].key, item![0]["color"]))
+                                    setEventClient(new category(item![0].name, item![0].key, item![0]["color"]))
                                 } else { setEventClient(null) } }}
                             styles={ { root: { width: 250 } } }
                             />
@@ -134,7 +134,7 @@ const EventForm = (props) => {
                     title : eventTitle,
                     startDate: (new Date(eventStartDate - tzoffset)).toISOString().slice(0, -1),
                     endDate: (new Date(eventEndDate - tzoffset)).toISOString().slice(0, -1),
-                    client: eventClient
+                    category: eventClient
                 }))
             }
             //We create a new event
@@ -143,7 +143,7 @@ const EventForm = (props) => {
                     title : eventTitle,
                     startDate: (new Date(eventStartDate - tzoffset)).toISOString().slice(0, -1),
                     endDate: (new Date(eventEndDate - tzoffset)).toISOString().slice(0, -1),
-                    client: eventClient
+                    category: eventClient
                 }));
             }            
         }
@@ -173,7 +173,7 @@ const EventForm = (props) => {
 
     function OnFilterChanged (filterText: string) {
         return filterText
-          ? props.clientList
+          ? props.categoryList
               .filter(tag => tag.name.toLowerCase().indexOf(filterText.toLowerCase()) === 0)          
           : [];
       }

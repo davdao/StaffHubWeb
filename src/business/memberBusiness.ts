@@ -1,11 +1,11 @@
 import { Config } from "../utils/constants";
 import { ResultBase } from "../model/httpRequest/resultbase";
-import { client } from "../model/client";
+import { category } from "../model/category";
 import { shift } from "../model/shift";
 
 export default class memberBusiness {
     public static  AddMemberEvent(_userEmail: string, _item: shift, _activityId: string) {
-        return new Promise<ResultBase<client>>((resolve, reject) => {
+        return new Promise<ResultBase<category>>((resolve, reject) => {
             fetch(Config.ApiUrl.Member.Event.Add.replace("{0}", _userEmail).replace("{1}", _activityId), {
                 method: 'POST',
                 headers: {
@@ -15,15 +15,15 @@ export default class memberBusiness {
                     "Title" : _item.title,
                     "StartDate": _item.startDate,
                     "EndDate" : _item.endDate,
-                    "Client": {
-                        "Name" : _item.client.name,
-                        "Id" : _item.client.id
+                    "Category": {
+                        "Name" : _item.category.name,
+                        "Id" : _item.category.id
                     }
                 }),
             })
                 .then((resp: Response) => {
                     resp.json()
-                    .then((res: ResultBase<client>) => {
+                    .then((res: ResultBase<category>) => {
                         resolve(res);
                     });
                 })
