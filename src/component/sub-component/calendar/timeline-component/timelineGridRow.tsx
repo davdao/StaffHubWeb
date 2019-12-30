@@ -72,19 +72,19 @@ const TimelineGridRow = (props: { calendarDays: string[]; currentMember: memberS
             return;                      
             
         let NbOverlapEvent = CheckOverlapEvent(_currentDay, _currentMonth);
-        let htmlContent = GetMultipleShift(currentShiftArray, _currentDay, _currentMonth, _totalCalandarDays, NbOverlapEvent);
+        let htmlContent = GetMultipleShift(currentShiftArray, _currentDay, _currentMonth, _totalCalandarDays, NbOverlapEvent, _currentYear);
         return(htmlContent);
    
     }
 
-    function GetMultipleShift(_shiftArrayObject, _currentDay, _currentMonth, _totalCalandarDays, _NbOverlapEvent) {
+    function GetMultipleShift(_shiftArrayObject, _currentDay, _currentMonth, _totalCalandarDays, _NbOverlapEvent, _currentYear) {
         let dynamicWith;
 
         let htmlContent = _shiftArrayObject.map((_shift, index) => {
             currentGridShift = currentGridShift.filter(i => i.id! !== _shift.id);
             usedGridShift.push(_shift);
             
-            dynamicWith = GetShiftWidth(_shift, _currentDay, _currentMonth, _totalCalandarDays);                           
+            dynamicWith = GetShiftWidth(_shift, _currentDay, _currentMonth, _totalCalandarDays, _currentYear);                           
 
             if(index > 0)   
                 _NbOverlapEvent++;
@@ -103,7 +103,7 @@ const TimelineGridRow = (props: { calendarDays: string[]; currentMember: memberS
         return (htmlContent);
     }
 
-    function GetShiftWidth(_shift, _currentDay, _currentMonth, _totalCalandarDays) {
+    function GetShiftWidth(_shift, _currentDay, _currentMonth, _totalCalandarDays, _currentYear) {
         let dynamicWithToReturn;
         let fixWidthValue = fixWidth;
         let diffDays:number;
@@ -115,7 +115,7 @@ const TimelineGridRow = (props: { calendarDays: string[]; currentMember: memberS
 
         diffDays++;
         fixWidthValue = SetWidthShiftValue(diffDays, fixWidthValue);
-        if(_shift.endMonth > _currentMonth) 
+        if(_shift.endMonth > _currentMonth || _shift.endYear > _currentYear) 
         {
             diffDays = _totalCalandarDays +1 - _currentDay;
             fixWidthValue = SetWidthShiftValue(diffDays, fixWidthValue);

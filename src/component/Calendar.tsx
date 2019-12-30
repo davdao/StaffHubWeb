@@ -36,13 +36,13 @@ const Calendar = (props : { urlParameters: string} ) => {
 
     function GetAcitivtyId(_url: string) {
         let returnValue = '1';
-        if(_url.indexOf("activityId") != -1)
+        if(_url.indexOf("activityId") !== -1)
             returnValue = _url.split('=')[1];
         
         return returnValue;
     }
 
-    function resetCurrentCalndarDate() 
+    function resetCurrentCalendarDate() 
     {
         let date = new Date().toLocaleString('default', { month: 'long', year: 'numeric' }).split(" ");
         setCalendarMonthName(date[0]);
@@ -97,28 +97,29 @@ const Calendar = (props : { urlParameters: string} ) => {
     }
 
     return(
-        <div>
+        <div>            
             <div>
-                <CalendarHeaderParameters OnClickedHeaderBtn={(e) => SetBtnParameters(e)} planningSelected={planningSelected}/>                
+                <CalendarHeaderParameters OnClickedHeaderBtn={(e) => SetBtnParameters(e)} planningSelected={planningSelected}/>                                
                 {
-                    planningSelected ?
-                        <CalendarMonthSelectorTimeline getCalendarCurrentDate={setCurrentCalendarDate} 
-                                                        resetCalendarCurrentDate={resetCurrentCalndarDate}
-                                                        calendarMonthName={calendarMonthName}
-                                                        calendarYearName={calendarYearName} />
-                        &&
-                        <CalendarMainTimeline staffingGroup={staffingGroup} 
-                                              categoryList={categoryList}
-                                              currentDays={calendarCurrentDay}
-                                              calendarDays={calendarDays}
-                                              calendarYearName={calendarYearName}
-                                              calendarMonthName={calendarMonthName}
-                                              ClearMessage={ClearMessage}
-                                              timelineMessage={timelineMessage}
-                                              timelineTypeMessage={timelineTypeMessage}
-                                              AddEvent={AddEvent}
-                                              UpdateEvent={UpdateEvent}
-                                              DeleteEvent={DeleteEvent} />                                                                   
+                    planningSelected ? 
+                        <div>
+                            <CalendarMonthSelectorTimeline getCalendarCurrentDate={setCurrentCalendarDate} 
+                                                            resetCalendarCurrentDate={resetCurrentCalendarDate}
+                                                            calendarMonthName={calendarMonthName}
+                                                            calendarYearName={calendarYearName} />
+                            <CalendarMainTimeline staffingGroup={staffingGroup} 
+                                                categoryList={categoryList}
+                                                currentDays={calendarCurrentDay}
+                                                calendarDays={calendarDays}
+                                                calendarYearName={calendarYearName}
+                                                calendarMonthName={calendarMonthName}
+                                                ClearMessage={ClearMessage}
+                                                timelineMessage={timelineMessage}
+                                                timelineTypeMessage={timelineTypeMessage}
+                                                AddEvent={AddEvent}
+                                                UpdateEvent={UpdateEvent}
+                                                DeleteEvent={DeleteEvent} />                                                                   
+                        </div>
                     :
                         <Parameter staffingGroup={staffingGroup} 
                                 categoryList={categoryList}/>
