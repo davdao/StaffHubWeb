@@ -2,8 +2,8 @@ import { Config } from "../utils/constants";
 import { ResultBase } from "../model/httpRequest/resultbase";
 import { category } from "../model/category";
 
-export default class clientBusiness {
-    public static  GetAllClient() {
+export default class categoryBusiness {
+    public static  GetAllCategory() {
         return new Promise<ResultBase<category>>((resolve, reject) => {
             fetch(Config.ApiUrl.Category.GetAll, {
                 headers: {
@@ -71,7 +71,7 @@ export default class clientBusiness {
             });
     }
 
-    public static DeleteCategory(_clientList, _client) {
+    public static DeleteCategory(_categoryList, _category) {
 
     }
 }

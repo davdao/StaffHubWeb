@@ -9,7 +9,7 @@ import { staffGroup } from '../model/staffGroup';
 import staffHubBusiness from '../business/staffHubBusiness';
 import { ResultBase } from '../model/httpRequest/resultbase';
 import { category } from '../model/category';
-import clientBusiness from '../business/clientBusiness';
+import categoryBusiness from '../business/categoryBusiness';
 import activityBusiness from '../business/activityBusiness';
 import Parameter from './sub-component/parameter/Parameter';
 
@@ -31,7 +31,7 @@ const Calendar = (props : { urlParameters: string} ) => {
 
     useEffect(() => {        
         activityBusiness.GetActivityById(activityId).then((result:ResultBase<staffGroup>) => {  setStaffingGroup(result.item!); }) 
-        clientBusiness.GetAllClient().then((result:ResultBase<category>) => { setCategoryList(result.data.map((item) => ({ key: item.id!, name: item.name, color: item.color }))); }) 
+        categoryBusiness.GetAllCategory().then((result:ResultBase<category>) => { setCategoryList(result.data.map((item) => ({ key: item.id!, name: item.name, color: item.color }))); }) 
     }, [activityId])
 
     function GetAcitivtyId(_url: string) {
