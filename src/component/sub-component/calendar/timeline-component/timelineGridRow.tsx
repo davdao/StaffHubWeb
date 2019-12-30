@@ -67,6 +67,10 @@ const TimelineGridRow = (props: { calendarDays: string[]; currentMember: memberS
         {
             currentShiftArray = _shiftArray.filter(u => u.startDay === _currentDay && u.startMonth === _currentMonth);
         }
+        else if(_shiftArray.some(u => u.startYear! < _currentYear && u.endMonth! === _currentMonth)) {
+            currentShiftArray = _shiftArray.filter(u => u.startYear! < _currentYear && u.endMonth! === _currentMonth);
+        }
+        
 
         if(!currentShiftArray)
             return;                      
