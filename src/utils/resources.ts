@@ -30,6 +30,7 @@ let strings = new LocalizedStrings({
         staffHubNewFormStartDatePickerTitle: 'Sélectionner une date de début',
         staffHubNewFormEndDatePickerTitle: 'Sélectionner une date de fin',
         staffHubNewFormDdlMembers: 'Membres',
+        staffHubNewFormCategoryDdl: 'Sélectionner un type',
         staffHubNewFormCategoryPicker: 'Suggestion de client',
         staffHubNewFormCategoryPickerNotFound: 'Client introuvable',
         staffHubNewFormColor: 'Couleur',

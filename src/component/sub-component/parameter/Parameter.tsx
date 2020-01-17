@@ -10,15 +10,17 @@ import { Panel } from 'office-ui-fabric-react/lib/components/Panel/Panel';
 import ParameterEditFormCategories from './ParameterEditFormCategories';
 import ParameterEditFormMember from './ParameterEditFormMember';
 import categoryBusiness from '../../../business/categoryBusiness';
+import { IDropdownOption } from 'office-ui-fabric-react';
 
 const Parameter = (props : { staffingGroup: staffGroup, 
-                            categoryList: Array<ITag> } ) => {
+                            categoryList: Array<IDropdownOption> } ) => {
 
     const [showPanel, setShowPanel] = useState(false);  
     const [showCategoryEditForm, setShowCategoryEditForm] = useState(false); 
     const [categoryToUpdate, setCategoryToUpdate] = useState(); 
     const [memberToUpdate, setMemberToUpdate] = useState(); 
-                           
+              
+    // <ParameterCategories categoryList={props.categoryList} UpdateCategory={OpenCategoryEditForm} />
     return(
         <div className = {styles.parameterView}>
             <div className={styles.parameterViewRow}>
@@ -31,7 +33,7 @@ const Parameter = (props : { staffingGroup: staffGroup,
                     </div>
                 </div>
                 <div className={styles.parameterViewRowContent}>
-                    <ParameterCategories categoryList={props.categoryList} UpdateCategory={OpenCategoryEditForm} />
+                   {"fsdfdfdd"}
                 </div>
             </div>
             <div className={styles.parameterViewRow}>
