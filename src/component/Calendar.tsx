@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import CalendarMainTimeline from './sub-component/calendar/CalendarMainTimeline';
 import CalendarMonthSelectorTimeline from './sub-component/calendar/CalendarMonthSelectorTimeline';
 import CalendarHeaderParameters from './sub-component/header/CalendarHeaderParameters';
-import { initializeIcons, MessageBarType, ITag } from 'office-ui-fabric-react'
+import { initializeIcons, MessageBarType, IDropdownOption } from 'office-ui-fabric-react'
 import { getDaysArrayByMonth } from '../utils/helper';
 import strings from '../utils/resources';
 import { staffGroup } from '../model/staffGroup';
@@ -20,7 +20,7 @@ const Calendar = (props : { urlParameters: string} ) => {
     
     const [activityId] = useState(GetAcitivtyId(props.urlParameters));
     const [staffingGroup, setStaffingGroup] = useState(new staffGroup());
-    const [categoryList, setCategoryList] = useState(new Array<ITag>());
+    const [categoryList, setCategoryList] = useState(new Array<IDropdownOption>());
     const [calendarCurrentDay] = useState(currentDate[0]);
     const [calendarMonthName, setCalendarMonthName] = useState(currentDate[1]);
     const [calendarYearName, setCalendarYearName] = useState(currentDate[2]);
@@ -31,7 +31,7 @@ const Calendar = (props : { urlParameters: string} ) => {
 
     useEffect(() => {        
         activityBusiness.GetActivityById(activityId).then((result:ResultBase<staffGroup>) => {  setStaffingGroup(result.item!); }) 
-        categoryBusiness.GetAllCategory().then((result:ResultBase<category>) => { setCategoryList(result.data.map((item) => ({ key: item.id!, name: item.name, color: item.color }))); }) 
+        categoryBusiness.GetAllCategory().then((result:ResultBase<category>) => { setCategoryList(result.data.map((item) => ({ key: item.id!, text: item.name, color: item.color }))); }) 
     }, [activityId])
 
     function GetAcitivtyId(_url: string) {
