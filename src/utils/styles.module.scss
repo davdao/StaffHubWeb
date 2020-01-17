@@ -82,7 +82,7 @@ body {
                         border-bottom: 1px solid $mediumGrey; border-right: 1px solid $mediumGrey; flex:1; height:100%;position: relative;
                     }
                     .timelineShift{ 
-                        margin-top:3px; height:20px; cursor:pointer;top:0px; z-index: 10;position: absolute; left: 3px; display: flex; border-radius: 5px 10px 10px 5px;
+                        margin-top:3px; height:20px; cursor:pointer;top:0px; z-index: 10;position: absolute; left: 3px; display: flex; border-radius: 5px 10px 10px 5px;overflow:hidden;
                         .timelineShiftTitle {
                             color: white; font-size:12px; margin: auto 0 auto 5px;
                         }
