@@ -17,7 +17,7 @@ export default class memberBusiness {
                     "EndDate" : _item.endDate,
                     "Category": {
                         "Name" : _item.category.name,
-                        "Id" : _item.category.id
+                        "Id" : parseInt(_item.category.id!)
                     }
                 }),
             })

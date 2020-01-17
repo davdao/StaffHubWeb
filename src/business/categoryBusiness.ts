@@ -54,7 +54,7 @@ export default class categoryBusiness {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    "Id" : _category.id,
+                    "Id" : parseInt(_category.category.id),
                     "Name": _category.name,
                     "Color" : _category.color
                 }),

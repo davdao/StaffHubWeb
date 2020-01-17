@@ -22,18 +22,6 @@ const EventForm = (props) => {
     const [showError, setShowError] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
 
-    //TODO à garder pour plus tard
-    /*
-                <div className={styles.row + " " + styles.newEventClient}>
-                    <span className={styles.newEventTitle}>{strings.staffHubNewFormColor}</span>
-                    <SwatchColorPicker onColorChanged={(prop) => { colorCellsStaffHub.some(u => u.id === prop) ? setEventColor(colorCellsStaffHub.find(u => u.id === prop)!.color) : setEventColor(colorCellsStaffHub[0].color) }} 
-                                        columnCount={5} 
-                                        cellShape={'circle'} 
-                                        colorCells={colorCellsStaffHub} 
-                                        selectedId={props.eventToUpdate ? colorCellsStaffHub.find(u => u.color === props.eventToUpdate.category.color)!.id : colorCellsStaffHub[0].id} />
-                </div>  
-                */
- 
     return(
         <div className={styles.addNewEventModal}>
             {
@@ -89,19 +77,12 @@ const EventForm = (props) => {
                         <IconCustomer />
                     </div>
                     <div>
-                        <TagPicker
-                            onResolveSuggestions={OnFilterChanged}                    
-                            pickerSuggestionsProps={{
-                                suggestionsHeaderText: strings.staffHubNewFormCategoryPicker,
-                                noResultsFoundText: strings.staffHubNewFormCategoryPickerNotFound
-                            }}
-                            itemLimit={1}
-                            defaultSelectedItems={props.categoryList.filter(u => u.name === eventCategory) }
-                            onChange={(item: ITag[] | undefined) => { 
-                                if(item!.length > 0) { 
-                                    setEventCategory(new category(item![0].name, item![0].key, item![0]["color"]))
-                                } else { setEventCategory(null) } }}
-                            styles={ { root: { width: 250 } } }
+                        <Dropdown
+                                placeholder={strings.staffHubNewFormCategoryDdl}
+                                options={props.categoryList}       
+                                defaultSelectedKey={eventCategory.id}   
+                                styles={ { dropdown: { width: 180 } }}                  
+                                onChanged={(value) => setEventCategory(new category(value.text, value.key.toString(), (props.categoryList.filter(u => u.key === value.key)[0].color)))}
                             />
                         </div>
                 </div>               
