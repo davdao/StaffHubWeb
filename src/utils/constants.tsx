@@ -8,8 +8,8 @@ export const fixWidth16_24Event = 102;
 export const fixWidth24_28Event = 102.2;
 export const timelineGridTopShift = 22;
 
-//const BASE_URL = "https://staffhub-api.azurewebsites.net/api";
-const BASE_URL = "https://localhost:44355/api";
+const BASE_URL = "https://staffhub-api.azurewebsites.net/api";
+//const BASE_URL = "https://localhost:44355/api";
 export const Config = {
     ApiUrl: {
         Activity: {
