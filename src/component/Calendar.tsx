@@ -5,6 +5,7 @@ import CalendarHeaderParameters from './sub-component/header/CalendarHeaderParam
 import { initializeIcons, MessageBarType, IDropdownOption } from 'office-ui-fabric-react'
 import { getDaysArrayByMonth } from '../utils/helper';
 import strings from '../utils/resources';
+import styles from '../utils/styles.module.scss';
 import { staffGroup } from '../model/staffGroup';
 import staffHubBusiness from '../business/staffHubBusiness';
 import { ResultBase } from '../model/httpRequest/resultbase';
@@ -12,6 +13,7 @@ import { category } from '../model/category';
 import categoryBusiness from '../business/categoryBusiness';
 import activityBusiness from '../business/activityBusiness';
 import Parameter from './sub-component/parameter/Parameter';
+import { IconLoader } from '../utils/constants';
 
 const Calendar = (props : { urlParameters: string} ) => {
     initializeIcons();
@@ -28,9 +30,11 @@ const Calendar = (props : { urlParameters: string} ) => {
     const [timelineMessage, setTimelineMessage] = useState("");
     const [timelineTypeMessage, setTimelineTypeMessage] = useState();
     const [planningSelected, setPlanningSelected] = useState(true);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {        
-        activityBusiness.GetActivityById(activityId).then((result:ResultBase<staffGroup>) => {  setStaffingGroup(result.item!); }) 
+        setIsLoading(true);
+        activityBusiness.GetActivityById(activityId).then((result:ResultBase<staffGroup>) => {  setStaffingGroup(result.item!); }).then(() => { setIsLoading(false); })
         categoryBusiness.GetAllCategory().then((result:ResultBase<category>) => { setCategoryList(result.data.map((item) => ({ key: item.id!, text: item.name, color: item.color }))); }) 
     }, [activityId])
 
@@ -96,37 +100,57 @@ const Calendar = (props : { urlParameters: string} ) => {
         setPlanningSelected(value);
     }
 
+    function RefreshCategory()
+    {
+        categoryBusiness.GetAllCategory().then((result:ResultBase<category>) => { setCategoryList(result.data.map((item) => ({ key: item.id!, text: item.name, color: item.color }))); }) 
+    }
+
+    function removeCategoryItem(categoryToRemove)
+    {
+        setCategoryList(categoryList.filter(u => u !== categoryToRemove));
+    }
+
     return(
-        <div>            
-            <div>
-                <CalendarHeaderParameters OnClickedHeaderBtn={(e) => SetBtnParameters(e)} planningSelected={planningSelected}/>                                
-                {
-                    planningSelected ? 
-                        <div>
-                            <CalendarMonthSelectorTimeline getCalendarCurrentDate={setCurrentCalendarDate} 
-                                                            resetCalendarCurrentDate={resetCurrentCalendarDate}
-                                                            calendarMonthName={calendarMonthName}
-                                                            calendarYearName={calendarYearName} />
-                            <CalendarMainTimeline staffingGroup={staffingGroup} 
-                                                categoryList={categoryList}
-                                                currentDays={calendarCurrentDay}
-                                                calendarDays={calendarDays}
-                                                calendarYearName={calendarYearName}
-                                                calendarMonthName={calendarMonthName}
-                                                ClearMessage={ClearMessage}
-                                                timelineMessage={timelineMessage}
-                                                timelineTypeMessage={timelineTypeMessage}
-                                                AddEvent={AddEvent}
-                                                UpdateEvent={UpdateEvent}
-                                                DeleteEvent={DeleteEvent} />                                                                   
-                        </div>
-                    :
-                        <Parameter staffingGroup={staffingGroup} 
-                                categoryList={categoryList}/>
-                }
-                                                
-                
-            </div>
+        <div> 
+            {   
+                isLoading ?
+                    <div className={styles.calendarLoaderContainer}>
+                        <IconLoader />
+                    </div>
+                :
+                    <div>
+                        <CalendarHeaderParameters OnClickedHeaderBtn={(e) => SetBtnParameters(e)} planningSelected={planningSelected}/>                                
+                        {
+                            planningSelected ? 
+                                <div>
+                                    <CalendarMonthSelectorTimeline getCalendarCurrentDate={setCurrentCalendarDate} 
+                                                                    resetCalendarCurrentDate={resetCurrentCalendarDate}
+                                                                    calendarMonthName={calendarMonthName}
+                                                                    calendarYearName={calendarYearName} />
+                                    <CalendarMainTimeline staffingGroup={staffingGroup} 
+                                                        categoryList={categoryList}
+                                                        currentDays={calendarCurrentDay}
+                                                        calendarDays={calendarDays}
+                                                        calendarYearName={calendarYearName}
+                                                        calendarMonthName={calendarMonthName}
+                                                        clearMessage={ClearMessage}
+                                                        timelineMessage={timelineMessage}
+                                                        timelineTypeMessage={timelineTypeMessage}
+                                                        AddEvent={AddEvent}
+                                                        UpdateEvent={UpdateEvent}
+                                                        DeleteEvent={DeleteEvent} />                                                                   
+                                </div>
+                            :
+                                <Parameter staffingGroup={staffingGroup} 
+                                        categoryList={categoryList}
+                                        refreshCategoryList={RefreshCategory}
+                                        removeCategoryItem={removeCategoryItem}
+                                        />
+                        }
+                                                        
+                        
+                    </div>
+            }
         </div>
     )
 

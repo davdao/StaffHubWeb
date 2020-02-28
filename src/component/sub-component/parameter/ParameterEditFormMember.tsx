@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import strings from '../../../utils/resources';
+import React from 'react';
 
 const ParameterEditFormMember = () => {
 

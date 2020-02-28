@@ -31,3 +31,7 @@ export function getDaysArrayByMonth(month:string, year: string) {
     }  
     return arrDays;
 }
+
+export function CheckIfWeekDay(day: string){
+    return day.toLocaleLowerCase() === 'sa' || day.toLocaleLowerCase() === 'di';
+}

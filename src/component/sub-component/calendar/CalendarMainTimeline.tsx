@@ -16,7 +16,7 @@ const CalendarMainTimeline = (props : { staffingGroup: staffGroup,
                                         calendarDays: string[], 
                                         calendarYearName: string,
                                         calendarMonthName: string,
-                                        ClearMessage,
+                                        clearMessage,
                                         timelineMessage, 
                                         timelineTypeMessage,
                                         AddEvent:((e, i) => void),
@@ -83,7 +83,7 @@ const CalendarMainTimeline = (props : { staffingGroup: staffGroup,
     }
 
     function DisplayMessage() {
-        let htmlContent = <MessageBar messageBarType={props.timelineTypeMessage} isMultiline={false} onDismiss={() => props.ClearMessage()}  dismissButtonAriaLabel="Close">
+        let htmlContent = <MessageBar messageBarType={props.timelineTypeMessage} isMultiline={false} onDismiss={() => props.clearMessage()}  dismissButtonAriaLabel="Close">
                                 {props.timelineMessage}
                             </MessageBar>
                             

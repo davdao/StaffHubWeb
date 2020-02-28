@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../../../../utils/styles.module.scss';
-import strings from '../../../../utils/resources';
 import { memberShift } from '../../../../model/memberShift';
 import { GetInitialFromName } from '../../../../utils/helper';
 import { shift } from '../../../../model/shift';
+import { CheckIfWeekDay } from '../../../../utils/helper';
 import { fixWidth, timelineGridTopShift, fixWidth4_12Event, fixWidth12_16Event, fixWidth16_24Event, fixWidth24_28Event } from '../../../../utils/constants';
 
 const TimelineGridRow = (props: { calendarDays: string[]; currentMember: memberShift; onOpenNewForm , currentMonthNumber: number, updateEvent}) => {    
-    const [hours] = useState(0);
     const [currentMonthNumber, setCurrentMonthNumber] = useState(props.currentMonthNumber);
     
     //This variable is used to store and manipulate the shift while we are loading all the data
@@ -29,18 +28,16 @@ const TimelineGridRow = (props: { calendarDays: string[]; currentMember: memberS
                             <div className={styles.initial}>{GetInitialFromName(props.currentMember.name)}</div>
                             <div className={styles.memberInfoContainer}>
                                 <div className={styles.name}>{props.currentMember.name}</div>
-                                <div className={styles.hours}>{hours + " " + strings.staffHubLeftPanelMemberHour}</div>                
                             </div>
                         </div>                                 
                     </div>
                     <div className={styles.timelineGrid}>
                         {   
-
                             props.calendarDays.map((day: string, index: number) => {        
                                 let splitedDay = day.split(" ");
 
                                 return(
-                                    <div className={styles.timelineCell} key={index} >
+                                    <div className={ CheckIfWeekDay(splitedDay[1]) ? styles.timelineCell + " " + styles.timeCellWeekDay : styles.timelineCell} key={index} >
                                         <div className={styles.timelineCellBorder}>
                                             <div className={styles.timelineCell} onClick={() => {props.onOpenNewForm(index +1)} }>                                                
                                             </div>                                            
@@ -78,7 +75,6 @@ const TimelineGridRow = (props: { calendarDays: string[]; currentMember: memberS
         let NbOverlapEvent = CheckOverlapEvent(_currentDay, _currentMonth);
         let htmlContent = GetMultipleShift(currentShiftArray, _currentDay, _currentMonth, _totalCalandarDays, NbOverlapEvent, _currentYear);
         return(htmlContent);
-   
     }
 
     function GetMultipleShift(_shiftArrayObject, _currentDay, _currentMonth, _totalCalandarDays, _NbOverlapEvent, _currentYear) {
