@@ -54,7 +54,7 @@ export default class categoryBusiness {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    "Id" : parseInt(_category.category.id),
+                    "Id" : parseInt(_category.id),
                     "Name": _category.name,
                     "Color" : _category.color
                 }),
@@ -71,7 +71,28 @@ export default class categoryBusiness {
             });
     }
 
-    public static DeleteCategory(_categoryList, _category) {
-
-    }
+    public static DeleteCategory(_category) {
+        return new Promise<ResultBase<category>>((resolve, reject) => {
+            fetch(Config.ApiUrl.Category.Update, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    "Id" : _category.key,
+                    "Name": _category.text,
+                    "Color" : _category.color
+                }),
+            })
+                .then((resp: Response) => {
+                    resp.json()
+                    .then((res: ResultBase<category>) => {
+                        resolve(res);
+                    });
+                })
+                .catch((error) => {
+                    reject([]);
+                }) ;
+            });
+    }    
 }

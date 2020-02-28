@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import strings from '../../../utils/resources';
-import { ITag } from 'office-ui-fabric-react/lib/components/pickers/TagPicker/TagPicker.types';
 import { DetailsList } from 'office-ui-fabric-react/lib/components/DetailsList/DetailsList';
-import { IColumn, CheckboxVisibility, DetailsListLayoutMode, IDetailsRowProps, DetailsRow } from 'office-ui-fabric-react';
+import { IColumn, CheckboxVisibility, DetailsListLayoutMode, IDetailsRowProps, DetailsRow, IDropdownOption } from 'office-ui-fabric-react';
 
-const ParameterCategories = (props : { categoryList: Array<ITag>, UpdateCategory:((e) => void) } ) => {  
+const ParameterCategories = (props : { categoryList: IDropdownOption[], UpdateCategory:((e) => void) } ) => {  
     const [allCategories, setAllCategories] = useState(GetAllCategoriesFromList(props.categoryList));
     const columnArray : IColumn[] = [
                                         {
@@ -28,7 +27,7 @@ const ParameterCategories = (props : { categoryList: Array<ITag>, UpdateCategory
 
     return(
             <DetailsList
-                items = {allCategories}
+                items = {GetAllCategoriesFromList(props.categoryList)}
                 columns = {columns}
                 onRenderRow = {_renderRow}
                 checkboxVisibility = { CheckboxVisibility.hidden }
@@ -47,7 +46,7 @@ const ParameterCategories = (props : { categoryList: Array<ITag>, UpdateCategory
 
     function GetAllCategoriesFromList(_categoryList) {
         let items = _categoryList.map((category) => {
-            return { ID: category.key, Titre : category.name, color : category.color }
+            return { ID: category.key, Titre : category.text, color : category.color }
         });
         return items;
     }

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import styles from '../../../utils/styles.module.scss';
 import strings from '../../../utils/resources';
 import { staffGroup } from '../../../model/staffGroup';
-import { ITag } from 'office-ui-fabric-react/lib/components/pickers/TagPicker/TagPicker.types';
 import ParameterCategories from './ParameterCategories';
 import ParameterMembers from './ParameterMembers';
 import { PanelType } from 'office-ui-fabric-react/lib/components/Panel/Panel.types';
@@ -10,19 +9,46 @@ import { Panel } from 'office-ui-fabric-react/lib/components/Panel/Panel';
 import ParameterEditFormCategories from './ParameterEditFormCategories';
 import ParameterEditFormMember from './ParameterEditFormMember';
 import categoryBusiness from '../../../business/categoryBusiness';
-import { IDropdownOption } from 'office-ui-fabric-react';
+import { IDropdownOption, DefaultButton, PrimaryButton } from 'office-ui-fabric-react';
+import { Dialog, DialogType, DialogFooter } from 'office-ui-fabric-react/lib/Dialog';
 
 const Parameter = (props : { staffingGroup: staffGroup, 
-                            categoryList: Array<IDropdownOption> } ) => {
-
+                            categoryList: Array<IDropdownOption>,
+                            refreshCategoryList: () => void,
+                            removeCategoryItem: (e) => void; } ) => {
+                               
     const [showPanel, setShowPanel] = useState(false);  
     const [showCategoryEditForm, setShowCategoryEditForm] = useState(false); 
     const [categoryToUpdate, setCategoryToUpdate] = useState(); 
     const [memberToUpdate, setMemberToUpdate] = useState(); 
+    const [showConfirmDelete, setShowConfirmDelete] = useState(true); 
               
-    // <ParameterCategories categoryList={props.categoryList} UpdateCategory={OpenCategoryEditForm} />
     return(
         <div className = {styles.parameterView}>
+            <Dialog
+                hidden={showConfirmDelete}                
+                onDismiss={() => setShowConfirmDelete(true)}
+                dialogContentProps={{
+                    type: DialogType.normal,                    
+                    title: strings.staffHubParametersDeleteCategory.replace('{0}', categoryToUpdate ? categoryToUpdate.text : ""),
+                    closeButtonAriaLabel: 'Close',
+                    subText: strings.staffHubParametersDeleteCategoryMsg
+                }}
+                modalProps={{                  
+                    isBlocking: false,
+                    styles: { main: { maxWidth: 450 } },
+                    
+                }}
+                >
+                <DialogFooter>
+                    <PrimaryButton text={strings.staffHubParametersDeleteCategoryDelete} onClick={() => {
+                        categoryBusiness.DeleteCategory(categoryToUpdate).then(() => {
+                            props.removeCategoryItem(categoryToUpdate); setShowConfirmDelete(true);
+                        })
+                        }} />
+                    <DefaultButton text={strings.staffHubParametersDeleteCategoryNo} onClick={() => setShowConfirmDelete(true)} />
+                </DialogFooter>
+                </Dialog>
             <div className={styles.parameterViewRow}>
                 <div className={styles.parameterViewRowTitle}>
                     <span>
@@ -33,7 +59,9 @@ const Parameter = (props : { staffingGroup: staffGroup,
                     </div>
                 </div>
                 <div className={styles.parameterViewRowContent}>
-                   {"fsdfdfdd"}
+                {
+                   <ParameterCategories categoryList={props.categoryList} UpdateCategory={OpenCategoryEditForm} />
+                }  
                 </div>
             </div>
             <div className={styles.parameterViewRow}>
@@ -72,7 +100,7 @@ const Parameter = (props : { staffingGroup: staffGroup,
             return strings.staffHubParametersAddFormTitle;
         }
         else {
-            return strings.staffHubParametersEditFormTitle.replace('{0}', categoryToUpdate ? categoryToUpdate.name : (memberToUpdate ? memberToUpdate.name : ''));
+            return strings.staffHubParametersEditFormTitle.replace('{0}', categoryToUpdate ? categoryToUpdate.text : (memberToUpdate ? memberToUpdate.text : ''));
         }        
     }
 
@@ -99,16 +127,17 @@ const Parameter = (props : { staffingGroup: staffGroup,
 
     function UpdateCategory(newTitle: string, newCategoryColor: string) {
         setShowPanel(false);
-
-        categoryBusiness.UpdateCategory({id: categoryToUpdate.key, name: newTitle, color: newCategoryColor})
+        categoryBusiness.UpdateCategory({id: categoryToUpdate.key, name: newTitle, color: newCategoryColor}).then(props.refreshCategoryList)
     }
 
-    function DeletCategory() {
+    function DeletCategory(_category) {
         setShowPanel(false);
+        setShowConfirmDelete(false)       
     }
+    
     function AddCategory(newTitle: string, newCategoryColor: string) {
         setShowPanel(false);
-        categoryBusiness.AddCategory({name: newTitle, color: newCategoryColor})
+        categoryBusiness.AddCategory({name: newTitle, color: newCategoryColor}).then(props.refreshCategoryList);
     }
 }
 export default Parameter;

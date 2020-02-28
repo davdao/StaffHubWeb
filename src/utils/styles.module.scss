@@ -27,6 +27,12 @@ body {
     background-color: white;
     min-height: 800px;
 
+    .calendarLoaderContainer{
+        display: flex;
+        > svg {
+            flex: 1; width: 400px; height: 400px; margin-top: 50px;
+        }        
+    }
     .calendarHeaderParametersContainer {
         height: 50px; background-color: $infeenyColor; display: flex; color:$white;
         .title { font-weight: 600; width: 280px; display:flex; flex-direction: column; justify-content: center; text-align: center; cursor:default; font-size:1.5em;}
@@ -59,10 +65,10 @@ body {
         .leftMembersPanel {
             display: flex;
             .leftMembersPanelContainer{
-                width: 200px; background-color: $lightGrey; min-width: 200px;
+                width: 150px; background-color: $lightGrey; min-width: 150px;
                 .leftMembersPanelRow {
                     width: 100%; display: flex; margin-bottom: 0px; height:70px; border-top: 1px solid $mediumGrey; cursor: default; border-right: 3px solid $mediumGrey;
-                    .initial{ margin: auto 0 auto 10px; height: 35px; width: 35px; color: $white; background-color: $infeenyColor; border-radius: 50%; text-align:center; vertical-align: middle; line-height: 35px;}
+                    .initial{ margin: auto 0 auto 10px; min-width: 35px; min-height: 35px; height: 35px; width: 35px; color: $white; background-color: $infeenyColor; border-radius: 50%; text-align:center; vertical-align: middle; line-height: 35px;}
                     .memberInfoContainer{
                         margin: auto 0 auto 10px;
                         .name{ font-weight: bold;}
@@ -88,13 +94,18 @@ body {
                         }
                     }
                     .timelineShift:hover{ opacity:0.8;}
-                }           
+                }    
+                .timeCellWeekDay{
+                    background-color: $mediumGrey;
+                    border-bottom: 1px solid $mediumGrey;
+                    border-right: 1px solid $mediumGrey; 
+                }       
             }
         }
         .timelineGroupContainer{ 
             height: 50px; background-color: $lightGrey; border-bottom: 1px solid $mediumGrey; display:flex;
             .timelineGroupContainerMonthWork { 
-                width: 200px; border-right: 3px solid $mediumGrey; 
+                width: 150px; border-right: 3px solid $mediumGrey; 
                 .timelineGroupContainerMonthWorkTitle { margin: 8px; }
             }
             .timelineGroupContainerName { 
@@ -108,7 +119,7 @@ body {
         .timelineTimeContainer {
             width: 100%; display:flex; background-color: $lightGrey;
             .monthTimeline { 
-                width: 200px; border-right: 3px solid $mediumGrey; border-bottom: 1px solid $mediumGrey;min-width:200px;
+                width: 150px; border-right: 3px solid $mediumGrey; border-bottom: 1px solid $mediumGrey;min-width:150px;
                 .monthTimelineTitle { margin: 8px; }
             }
 
@@ -174,18 +185,20 @@ body {
             }
     }    
     .newEventButton {
-        position: absolute;bottom: 40px; width: 100%; display:flex; margin-left:-15px;
+        position: absolute;bottom:40px;width:100%;display:flex;margin-left:-15px;
         .newEventSaveButton { 
             button { height: inherit;}
             margin: auto 15px auto auto;
          }
         .newEventDeleteButton { 
-            height: 40px; width:40px; display: flex;
+            height: 40px; width:40px; display: flex; cursor:pointer;
             svg { height: 21px; width:21px;}
             button { height: inherit; min-width: 7rem; }
             margin-left: 15px;
             .iconDelete, .iconDeleteHover { margin:auto;}
-            .iconDelete {display: block; }
+            .iconDelete {
+                display: block; 
+            }
             .iconDeleteHover { display: none; }
         }
         .newEventDeleteButton:hover { 
@@ -205,8 +218,26 @@ body {
         }
     }  
     .updateCategoryMemberSaveButton{
+        position: absolute;bottom:40px;width:100%;display:flex; margin-left:-15px;
         button { height: inherit;}
-        position: fixed; bottom: 35px; right: 15px;
+
+        .saveCategoryMemberButton{ margin: auto 15px auto auto; }
+        
+        .newEventDeleteButton { 
+            height: 40px; width:40px; display: flex; margin-left: 15px; cursor:pointer;
+            svg { height: 21px; width:21px;}
+            button { height: inherit; min-width: 7rem; }            
+            .iconDelete, .iconDeleteHover { margin:auto;}
+            .iconDelete {
+                display: block; 
+            }
+            .iconDeleteHover { display: none; }
+        }
+        .newEventDeleteButton:hover {             
+            svg { height: 40px; width:40px;}
+            .iconDelete { display: none; }
+            .iconDeleteHover { display: block; }
+        }        
     }  
 }
 

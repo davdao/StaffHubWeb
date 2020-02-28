@@ -4,10 +4,8 @@ import strings from '../../../../utils/resources';
 import { DatePicker } from 'office-ui-fabric-react/lib/DatePicker';
 import { Dropdown } from 'office-ui-fabric-react/lib/components/Dropdown/Dropdown';
 import { IconCalendar, IconRightArrow, IconCustomer, IconDeleteHover, IconDelete } from '../../../../utils/constants';
-import { TagPicker } from 'office-ui-fabric-react/lib/components/pickers/TagPicker/TagPicker';
 import { MessageBar } from 'office-ui-fabric-react/lib/components/MessageBar/MessageBar';
 import { MessageBarType } from 'office-ui-fabric-react/lib/components/MessageBar/MessageBar.types';
-import { ITag } from 'office-ui-fabric-react';
 import { PrimaryButton, Input } from 'msteams-ui-components-react';
 import { shift } from '../../../../model/shift';
 import { category } from '../../../../model/category';
@@ -151,14 +149,6 @@ const EventForm = (props) => {
         setShowError(!result);
         return result;
     }
-
-    function OnFilterChanged (filterText: string) {
-        return filterText
-          ? props.categoryList
-              .filter(tag => tag.name.toLowerCase().indexOf(filterText.toLowerCase()) === 0)          
-          : [];
-      }
-    
     
     function OnFormatDate (date): string {
         return date.getDate() + '/' + (date.getMonth() + 1) + '/' + (date.getFullYear() % 100);

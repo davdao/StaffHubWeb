@@ -3,7 +3,7 @@ import styles from '../../../utils/styles.module.scss';
 import strings from '../../../utils/resources';
 import { Input } from 'msteams-ui-components-react/lib/input';
 import { Dropdown } from 'office-ui-fabric-react/lib/components/Dropdown/Dropdown';
-import { colorCellsStaffHub } from '../../../utils/constants';
+import { colorCellsStaffHub, IconDelete, IconDeleteHover } from '../../../utils/constants';
 import { IDropdownOption } from 'office-ui-fabric-react/lib/components/Dropdown/Dropdown.types';
 import { PrimaryButton } from 'msteams-ui-components-react/lib/buttons/primary';
 import { MessageBar } from 'office-ui-fabric-react/lib/components/MessageBar/MessageBar';
@@ -11,9 +11,9 @@ import { MessageBarType } from 'office-ui-fabric-react/lib/components/MessageBar
 
 const ParameterEditFormCategories = (props : {  categoryToUpdate: any,
                                                 updateCategory:((e, u) => void),
-                                                deleteCategory:(() => void),
+                                                deleteCategory:((e) => void),
                                                 addCategory:((e, u) => void) }) => {
-    const [categoryTitle, setCategoryTitle] = useState(props.categoryToUpdate ? props.categoryToUpdate.name : "");
+    const [categoryTitle, setCategoryTitle] = useState(props.categoryToUpdate ? props.categoryToUpdate.text: "");
     const [categoryColor, setCategoryColor] = useState(props.categoryToUpdate ? colorCellsStaffHub.filter(u => u.color === props.categoryToUpdate.color)[0].id : "");
     const [showError, setShowError] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
@@ -47,7 +47,21 @@ const ParameterEditFormCategories = (props : {  categoryToUpdate: any,
             </div>
         </div>
         <div className={styles.updateCategoryMemberSaveButton}>
+            {
+                props.categoryToUpdate &&
+                <div className={styles.newEventDeleteButton} onClick={() => props.deleteCategory(props.categoryToUpdate)}>
+                    <div className={styles.iconDelete}>
+                        <IconDelete />
+
+                    </div>
+                    <div className={styles.iconDeleteHover}>
+                        <IconDeleteHover />
+                    </div>
+                </div>
+            }
+            <div className={styles.saveCategoryMemberButton}>
                 <PrimaryButton onClick={() => _saveCategory()} >{strings.staffHubParametersBtnSave}</PrimaryButton>
+            </div>
         </div>  
     </div>)
     

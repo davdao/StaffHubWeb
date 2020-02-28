@@ -8,8 +8,8 @@ export const fixWidth16_24Event = 102;
 export const fixWidth24_28Event = 102.2;
 export const timelineGridTopShift = 22;
 
-const BASE_URL = "https://staffhub-api.azurewebsites.net/api";
-//const BASE_URL = "https://localhost:44355/api";
+//const BASE_URL = "https://staffhub-api.azurewebsites.net/api";
+const BASE_URL = "https://localhost:44355/api";
 export const Config = {
     ApiUrl: {
         Activity: {
@@ -29,8 +29,8 @@ export const Config = {
         },
         Category :{
             GetAll : BASE_URL + '/category',
-            Add : BASE_URL + '/category',
-            Update : BASE_URL + '/category/update',
+            Add : BASE_URL + '/category/add',
+            Update : BASE_URL + '/category',
             Delete : BASE_URL + '/category'
         }
     }
@@ -78,7 +78,7 @@ export function IconDeleteHover() {
                 <path id="Tracé_3023" data-name="Tracé 3023" d="M14.919,66.881V196.507a29.049,29.049,0,0,0,7.707,20.019A25.857,25.857,0,0,0,41.4,224.655h99.409a25.851,25.851,0,0,0,18.773-8.128,29.049,29.049,0,0,0,7.707-20.019V66.881a20.1,20.1,0,0,0-5.149-39.523h-26.9V20.781A20.652,20.652,0,0,0,114.43,0H67.776A20.652,20.652,0,0,0,46.969,20.781v6.577h-26.9a20.1,20.1,0,0,0-5.149,39.523ZM140.808,214.132H41.4c-8.983,0-15.972-7.727-15.972-17.625V67.343H156.779V196.507c0,9.9-6.988,17.625-15.972,17.625ZM57.477,20.781a10.129,10.129,0,0,1,10.3-10.259H114.43a10.129,10.129,0,0,1,10.3,10.259v6.577H57.477ZM20.069,37.88H162.138a9.47,9.47,0,0,1,0,18.94H20.069a9.47,9.47,0,0,1,0-18.94Zm0,0" transform="translate(0.003 0.002)" fill="#4b509e"/>
                 <path id="Tracé_3024" data-name="Tracé 3024" d="M168.566,154.7a5.268,5.268,0,0,0-5.168,5.364V261.444a5.171,5.171,0,1,0,10.335,0V160.067A5.268,5.268,0,0,0,168.566,154.7Zm0,0" transform="translate(-77.46 -71.758)" fill="#fff"/>
             </g>
-            <g id="Ellipse_814" data-name="Ellipse 814" fill="none" stroke="#4b509e" stroke-width="15">
+            <g id="Ellipse_814" data-name="Ellipse 814" fill="none" stroke="#4b509e" strokeWidth="15">
                 <circle cx="194" cy="194" r="194" stroke="none"/>
                 <circle cx="194" cy="194" r="186.5" fill="none"/>
             </g>
@@ -128,6 +128,20 @@ export function IconCalendar() {
     )
 }
 
+export function IconLoader() {
+    return(
+        <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+            <circle cx="50" cy="50" r="23.2115" fill="none" stroke="#5f2a62" strokeWidth="1">
+            <animate attributeName="r" repeatCount="indefinite" dur="1s" values="0;41" keyTimes="0;1" keySplines="0 0.2 0.8 1" calcMode="spline" begin="-0.5s"></animate>
+            <animate attributeName="opacity" repeatCount="indefinite" dur="1s" values="1;0" keyTimes="0;1" keySplines="0.2 0 0.8 1" calcMode="spline" begin="-0.5s"></animate>
+            </circle>
+            <circle cx="50" cy="50" r="39.9285" fill="none" stroke="#a976c3" strokeWidth="1">
+            <animate attributeName="r" repeatCount="indefinite" dur="1s" values="0;41" keyTimes="0;1" keySplines="0 0.2 0.8 1" calcMode="spline"></animate>
+            <animate attributeName="opacity" repeatCount="indefinite" dur="1s" values="1;0" keyTimes="0;1" keySplines="0.2 0 0.8 1" calcMode="spline"></animate>
+            </circle>
+        </svg>
+    )
+}
 export function IconCustomer() {
     return(
         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
